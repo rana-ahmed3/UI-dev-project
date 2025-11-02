@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link href="styles/output.css" rel="stylesheet">
+    <style>
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://www.georgeinstitute.org/sites/default/files/2020-10/world-food-day-2020.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+        }
+        
+        .dark-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="background-container ">
+        <div class="dark-overlay"></div>
+    </div>
+    
+    <!-- content of page-->
+    <div class=" content flex items-center justify-center min-h-screen content py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-white">Create your account</h2>
+                <p class="mt-2 text-sm text-white">Join RecipeFinder and start planning your meals</p>
+            </div>
+            
+            <form action="Home_Page.html" class="mt-8 space-y-6 bg-white bg-opacity-90 p-8 rounded-xl shadow-2xl">
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="firstName" class="block text-sm font-medium text-gray-700">First name</label>
+                            <input id="firstName" name="firstName" type="text" required 
+                                   class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300"
+                                   placeholder="Rana">
+                        </div>
+                        <div>
+                            <label for="lastName" class="block text-sm font-medium text-gray-700">Last name</label>
+                            <input id="lastName" name="lastName" type="text" required 
+                                   class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300"
+                                   placeholder="Ahmed">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
+                        <input id="email" name="email" type="email" required 
+                               class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-300"
+                               placeholder="s-rana.maaty@zewailcity.edu.eg">
+                    </div>
+                    
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <input id="password" name="password" type="password" required 
+                               class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300"
+                               placeholder="Create a password">
+                    </div>
+                    
+                    <div>
+                        <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm password</label>
+                        <input id="confirmPassword" name="confirmPassword" type="password" required 
+                               class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300"
+                               placeholder="Confirm your password">
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    <input id="terms" name="terms" type="checkbox"  required
+                           class="h-4 w-4 accent-green-500 rounded">
+                    <label for="terms" class="ml-2 block text-sm text-gray-700">
+                        I agree to the <a href="#" class="text-green-600 hover:text-green-500 transition duration-300">Terms and Conditions</a>
+                    </label>
+                </div>
+
+                <div>
+                    <button type="submit" 
+                            class="w-full py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-300 transform hover:scale-105">
+                        Create account
+                    </button>
+                </div>
+
+                <div class="text-center">
+                    <p class="text-sm text-gray-600">
+                        Already have an account?
+                        <a href="login_page.html" class="font-medium text-green-600 hover:text-green-500 transition duration-300">Sign in here</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

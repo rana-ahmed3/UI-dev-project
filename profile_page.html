@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="styles/output.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+    <!-- navbar -->
+    <div class="navbar-space h-16 bg-gray-800"></div>
+
+    <main class="max-w-4xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <!-- title-->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Profile Settings</h1>
+            <p class="text-gray-600 mt-2">Manage your account settings and preferences</p>
+        </div>
+
+         <!-- content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+             <!-- side -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="text-center">
+                        <div class="w-24 h-24 mx-auto mb-4  ">
+                            <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg" alt="user photo" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900">Rana Ahmed</h3>
+                        <p class="text-gray-600 text-sm">s-rana.maaty@zewailcity.edu.eg</p>
+                        <p class="text-green-600 text-sm mt-2">member since Jan 2024</p>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!--right side -->
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-white rounded-lg shadow">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h2 class="text-xl font-bold text-gray-900">Personal Information</h2>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">First name</label>
+                                <input type="text" value="Rana" 
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Last name</label>
+                                <input type="text" value="Ahmed" 
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" value="s-rana.maaty@zewailcity.edu.eg" 
+                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Bio</label>
+                            <textarea rows="3" 
+                                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500"
+                                      placeholder="Tell us about yourself...">Love cooking healthy meals and trying new recipes!</textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- Save Button -->
+                <div class="flex justify-end">
+                    <button class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition duration-300">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Space -->
+    <div class="footer-space h-32 bg-gray-800 mt-12"></div>
+</body>
+</html>

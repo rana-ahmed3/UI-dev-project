@@ -1,0 +1,24 @@
+﻿{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tailwindcss -i ./src/input.css -o ./styles/output.css --watch",
+    "build": "tailwindcss -i ./src/input.css -o ./styles/output.css --minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rana-ahmed3/UI-dev-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rana-ahmed3/UI-dev-project/issues"
+  },
+  "homepage": "https://github.com/rana-ahmed3/UI-dev-project#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}
