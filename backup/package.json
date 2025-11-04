@@ -1,0 +1,7 @@
+{
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "build:css": "tailwindcss -i ./SRC/assets/css/main.css -o ./SRC/assets/css/output.css --watch"
+    }
+}

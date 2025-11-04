@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Add New Recipe</title>
+    <link href="assets/css/tailwind-output.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+
+<body class="font-display bg-green-50">
+    <div class="relative flex h-auto min-h-screen w-full flex-col text-slate-800 overflow-x-hidden">
+        <div class="layout-container flex h-full grow flex-col">
+            <!-- header -->
+            <header class="border-b border-gray-200 bg-white/90 backdrop-blur sticky top-0 z-40">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between h-16">
+                        <a href="home.html" class="flex items-center gap-2">
+                            <span
+                                class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-green-600 text-white font-bold">M</span>
+                            <span class="font-semibold text-lg">MealPlanner</span>
+                        </a>
+                        <!--nav bar-->
+                        <nav class="hidden md:flex items-center gap-8 text-sm">
+                            <a href="../home.html" class="text-gray-700 hover:text-green-600">Home</a>
+                            <a href="list_page.html" class="text-green-600 font-bold">Recipes</a>
+                            <a href="../Dashboard_Page.html" class="text-gray-700 hover:text-green-600">Meal Planner</a>
+                            <a href="../profile_page.html" class="text-gray-700 hover:text-green-600">Profile</a>
+                            <a href="form_page.html" class="text-gray-700 hover:text-green-600">Add Recipe</a>
+                        </nav>
+                        <div class="hidden md:flex items-center gap-3">
+                            <a href="index.html"
+                                class="inline-flex items-center rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700">Login</a>
+                        </div>
+                        <!-- Mobile menu button -->
+                        <div class="md:hidden">
+                            <button
+                                class="inline-flex h-9 w-9 items-center justify-center rounded-md ring-1 ring-inset ring-gray-300 text-gray-700 hover:bg-gray-50">
+                                <span class="block h-4 w-4">
+                                    <span class="block h-0.5 w-4 bg-gray-700"></span>
+                                    <span class="block h-0.5 w-4 bg-gray-700 mt-1"></span>
+                                    <span class="block h-0.5 w-4 bg-gray-700 mt-1"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- hero-->
+            <main class="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 py-8">
+                <div class="space-y-8">
+                    <!-- title-->
+                    <div class="flex flex-col gap-3">
+                        <h1 class="text-4xl font-black leading-tight tracking-[-0.033em] text-slate-900">Add New Recipe
+                        </h1>
+                        <p class="text-slate-600 text-base font-normal leading-normal">Fill in the details below to add
+                            your recipe to the collection.</p>
+                    </div>
+
+
+                    <div class="space-y-8">
+                        <!-- Recipe Basics -->
+                        <div class="space-y-6">
+                            <h3 class="text-xl font-bold text-slate-900 border-b border-green-200 pb-2">Recipe Basics
+                            </h3>
+
+                            <!-- recipe name-->
+                            <div class="max-w-[480px]">
+                                <label class="flex flex-col">
+                                    <p class="text-slate-700 text-base font-medium pb-2">Recipe Name</p>
+                                    <input
+                                        class="w-full rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 h-14 placeholder:text-slate-400 px-4 text-base font-normal"
+                                        placeholder="e.g., Classic Lasagna" />
+                                </label>
+                            </div>
+
+                            <!-- meal description -->
+                            <div class="max-w-[480px]">
+                                <label class="flex flex-col">
+                                    <p class="text-slate-700 text-base font-medium pb-2">Recipe Description (Optional)
+                                    </p>
+                                    <textarea
+                                        class="w-full rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 min-h-36 placeholder:text-slate-400 px-4 py-3 text-base font-normal"
+                                        placeholder="A short and sweet description of your delicious recipe."></textarea>
+                                </label>
+                            </div>
+
+                            <!-- upload image-->
+                            <div class="flex flex-col">
+                                <div
+                                    class="flex flex-col items-center gap-6 rounded-lg border-2 border-dashed border-green-300 px-6 py-14 bg-white">
+                                    <div class="flex max-w-[480px] flex-col items-center gap-2">
+                                        <p class="text-slate-900 text-lg font-bold leading-tight text-center">Upload
+                                            Recipe Image</p>
+                                        <p class="text-slate-500 text-sm font-normal leading-normal text-center">Drag
+                                            and drop an image here, or click to browse files.</p>
+                                    </div>
+                                    <button
+                                        class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-green-100 text-green-700 text-sm font-bold hover:bg-green-200">
+                                        <span class="truncate">Browse Files</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Details Section -->
+                        <div class="space-y-6">
+                            <h3 class="text-xl font-bold text-slate-900 border-b border-green-200 pb-2">Details</h3>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[480px]">
+                                <!-- food type-->
+                                <label class="flex flex-col">
+                                    <p class="text-slate-700 text-base font-medium pb-2">Cuisine Type</p>
+                                    <select
+                                        class="w-full rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 h-14 px-4 text-base">
+                                        <option>Italian</option>
+                                        <option>Mexican</option>
+                                        <option>Indian</option>
+                                        <option>Chinese</option>
+                                    </select>
+                                </label>
+
+                                <!-- meal type-->
+                                <label class="flex flex-col">
+                                    <p class="text-slate-700 text-base font-medium pb-2">Meal Type</p>
+                                    <select
+                                        class="w-full rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 h-14 px-4 text-base">
+                                        <option>Breakfast</option>
+                                        <option>Lunch</option>
+                                        <option>Dinner</option>
+                                        <option>Dessert</option>
+                                    </select>
+                                </label>
+                            </div>
+
+                            <!-- qulaity -->
+                            <div class="space-y-2">
+                                <p class="text-slate-700 text-base font-medium">Dietary Restrictions</p>
+                                <div class="flex flex-wrap gap-3">
+                                    <button
+                                        class="flex items-center gap-2 rounded-full border border-green-300 px-3 py-1.5 text-sm text-slate-700 bg-green-100 hover:bg-green-200">Vegan</button>
+                                    <button
+                                        class="flex items-center gap-2 rounded-full border border-green-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-green-100">Gluten-Free</button>
+                                    <button
+                                        class="flex items-center gap-2 rounded-full border border-green-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-green-100">Nut-Free</button>
+                                    <button
+                                        class="flex items-center gap-2 rounded-full border border-green-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-green-100">Vegetarian</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ingredients Section -->
+                        <div class="space-y-6">
+                            <h3 class="text-xl font-bold text-slate-900 border-b border-green-200 pb-2">Ingredients</h3>
+
+                            <div class="space-y-4">
+                                <!-- ingredianes-->
+                                <div class="grid grid-cols-1 md:grid-cols-[1fr_1fr_2fr_auto] gap-4 items-end">
+                                    <label class="flex flex-col">
+                                        <p class="text-slate-700 text-sm font-medium pb-1">Quantity</p>
+                                        <input
+                                            class="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                            placeholder="e.g., 2" type="text" />
+                                    </label>
+                                    <label class="flex flex-col">
+                                        <p class="text-slate-700 text-sm font-medium pb-1">Unit</p>
+                                        <input
+                                            class="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                            placeholder="e.g., cups" type="text" />
+                                    </label>
+                                    <label class="flex flex-col">
+                                        <p class="text-slate-700 text-sm font-medium pb-1">Name</p>
+                                        <input
+                                            class="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                            placeholder="e.g., All-purpose flour" type="text" />
+                                    </label>
+                                    <button
+                                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-200">
+                                        <span class="material-symbols-outlined text-xl">delete</span>
+                                    </button>
+                                </div>
+
+                                <!-- extra description-->
+                                <div class="grid grid-cols-1 md:grid-cols-[1fr_1fr_2fr_auto] gap-4 items-end">
+                                    <label class="flex flex-col">
+                                        <input
+                                            class="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                            placeholder="1" type="text" />
+                                    </label>
+                                    <label class="flex flex-col">
+                                        <input
+                                            class="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                            placeholder="tbsp" type="text" />
+                                    </label>
+                                    <label class="flex flex-col">
+                                        <input
+                                            class="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                            placeholder="Olive oil" type="text" />
+                                    </label>
+                                    <button
+                                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-200">
+                                        <span class="material-symbols-outlined text-xl">delete</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button
+                                class="flex min-w-[84px] cursor-pointer items-center justify-center gap-2 rounded-lg h-10 px-4 bg-green-100 text-green-700 text-sm font-bold hover:bg-green-200">
+                                <span class="material-symbols-outlined text-xl">add</span>
+                                <span class="truncate">Add Ingredient</span>
+                            </button>
+                        </div>
+
+                        <!-- Instructions Section -->
+                        <div class="space-y-6">
+                            <h3 class="text-xl font-bold text-slate-900 border-b border-green-200 pb-2">Instructions
+                            </h3>
+
+                            <div class="space-y-4">
+                                <!-- step 1-->
+                                <div class="flex items-start gap-4">
+                                    <span class="text-lg font-bold text-slate-500 pt-2">1.</span>
+                                    <textarea
+                                        class="flex-1 min-h-24 rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                        placeholder="Describe the first step..."></textarea>
+                                    <button
+                                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-200 mt-2">
+                                        <span class="material-symbols-outlined text-xl">delete</span>
+                                    </button>
+                                </div>
+
+                                <!-- step 2 -->
+                                <div class="flex items-start gap-4">
+                                    <span class="text-lg font-bold text-slate-500 pt-2">2.</span>
+                                    <textarea
+                                        class="flex-1 min-h-24 rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                        placeholder="And the next step..."></textarea>
+                                    <button
+                                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-200 mt-2">
+                                        <span class="material-symbols-outlined text-xl">delete</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button
+                                class="flex min-w-[84px] cursor-pointer items-center justify-center gap-2 rounded-lg h-10 px-4 bg-green-100 text-green-700 text-sm font-bold hover:bg-green-200">
+                                <span class="material-symbols-outlined text-xl">add</span>
+                                <span class="truncate">Add Step</span>
+                            </button>
+                        </div>
+
+                        <!-- Nutrition Section -->
+                        <div class="space-y-6">
+                            <h3 class="text-xl font-bold text-slate-900 border-b border-green-200 pb-2">Nutrition
+                                Information (Optional)</h3>
+
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <label class="flex flex-col">
+                                    <p class="text-slate-700 text-sm font-medium pb-1">Calories</p>
+                                    <input
+                                        class="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                        placeholder="e.g., 350" type="text" />
+                                </label>
+                                <label class="flex flex-col">
+                                    <p class="text-slate-700 text-sm font-medium pb-1">Protein (g)</p>
+                                    <input
+                                        class="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                        placeholder="e.g., 20" type="text" />
+                                </label>
+                                <label class="flex flex-col">
+                                    <p class="text-slate-700 text-sm font-medium pb-1">Carbs (g)</p>
+                                    <input
+                                        class="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                        placeholder="e.g., 45" type="text" />
+                                </label>
+                                <label class="flex flex-col">
+                                    <p class="text-slate-700 text-sm font-medium pb-1">Fat (g)</p>
+                                    <input
+                                        class="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                        placeholder="e.g., 15" type="text" />
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Action Bar -->
+                        <div class="flex justify-end items-center gap-4 pt-6 border-t border-green-200 mt-4">
+                            <button
+                                class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-transparent text-slate-700 text-base font-bold hover:bg-slate-100">
+                                <span class="truncate">Cancel</span>
+                            </button>
+                            <button
+                                class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-green-600 text-white text-base font-bold hover:bg-green-700">
+                                <span class="truncate">Save Recipe</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <!--footer-->
+    <footer class="mt-auto border-t border-gray-200 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <p class="text-sm text-gray-600">© 2025 MealPlanner. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
