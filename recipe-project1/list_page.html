@@ -22,36 +22,50 @@
         class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 group/design-root overflow-x-hidden">
         <div class="layout-container flex h-full grow flex-col">
             <header
-                class="sticky top-0 z-20 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-slate-200/80 dark:border-slate-800/80">
-                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="flex items-center justify-between whitespace-nowrap py-3">
-                        <div class="flex items-center gap-4 text-slate-900 dark:text-slate-50">
-                            <div class="text-primary size-7">
-                                <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z"
-                                        fill="currentColor"></path>
-                                </svg>
-                            </div>
-                            <h2 class="text-xl font-bold leading-tight tracking-[-0.015em]">RecipeApp</h2>
+                class="border-b border-gray-200 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-40">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between h-16">
+                        <a href="home.html" class="flex items-center gap-2">
+                            <span
+                                class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500 text-white font-bold">M</span>
+                            <span class="font-semibold text-lg">MealPlanner</span>
+                        </a>
+                        <nav class="hidden md:flex items-center gap-8 text-sm">
+                            <a href="home.html" class="text-gray-700 hover:text-emerald-600">Home</a>
+                            <a href="#" class="text-gray-700 hover:text-emerald-600">Recipes</a>
+                            <a href="Dashboard_Page.html" class="text-gray-700 hover:text-emerald-600">Meal Planner</a>
+                            <a href="profile_page.html" class="text-gray-700 hover:text-emerald-600">Profile</a>
+                        </nav>
+                        <div class="hidden md:flex items-center gap-3">
+                            <a href="index.html"
+                                class="inline-flex items-center rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">Login</a>
                         </div>
-                        <div class="hidden md:flex items-center gap-9">
-                            <a class="text-sm font-medium leading-normal text-slate-800 dark:text-slate-200 hover:text-primary dark:hover:text-primary transition-colors"
-                                href="#">Discover</a>
-                            <a class="text-sm font-medium leading-normal text-slate-800 dark:text-slate-200 hover:text-primary dark:hover:text-primary transition-colors"
-                                href="#">My Recipes</a>
-                            <a class="text-sm font-medium leading-normal text-slate-800 dark:text-slate-200 hover:text-primary dark:hover:text-primary transition-colors"
-                                href="#">Meal Planner</a>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <button
-                                class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-primary/20 text-slate-900 dark:text-slate-50 gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
-                                <span class="material-symbols-outlined text-xl">add</span>
-                                <span class="hidden sm:inline">Add Recipe</span>
-                            </button>
-                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-                                data-alt="User profile picture"
-                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCnXoxVlT2Bsm966Igj11-6fCYnV_CWTVxSqR-OHn-0XZ3Ow5r1qT8HPbzpV1oTJRVkv-a0AllGzpfyKvDxig1Jybr8v7t3t5pyIt5qr-j9DDErbOcbcz3txuShWjgIUg7m9GP8RMXxWrKk2B4BJkSwdUbhEinyo_oL2rUQMOxOle5xoeieVvbrO7f_kWdj1weqySJkfmWl0A3zo3zqzrRZTt_tCQoanT6qkIgMRkiy6bTXbnBVnltmCdkhV9uoW0y2MgPOZQw7coye");'>
+                        <!-- Mobile menu toggle (no JS) -->
+                        <div class="md:hidden">
+                            <input id="nav-toggle" type="checkbox" class="peer hidden" style="display:none" />
+                            <label for="nav-toggle" aria-label="Open menu"
+                                class="inline-flex md:hidden h-9 w-9 items-center justify-center rounded-md ring-1 ring-inset ring-gray-300 text-gray-700 hover:bg-gray-50">
+                                <span class="block md:hidden h-4 w-4">
+                                    <span class="block h-0.5 w-4 bg-gray-700"></span>
+                                    <span class="block h-0.5 w-4 bg-gray-700 mt-1"></span>
+                                    <span class="block h-0.5 w-4 bg-gray-700 mt-1"></span>
+                                </span>
+                            </label>
+                            <div class="absolute left-0 right-0 mt-2 hidden peer-checked:block">
+                                <div class="mx-4 rounded-lg border border-gray-200 bg-white shadow-lg">
+                                    <nav class="flex flex-col p-3 text-sm">
+                                        <a href="home.html"
+                                            class="rounded-md px-3 py-2 text-gray-700 hover:bg-gray-50">Home</a>
+                                        <a href="/"
+                                            class="rounded-md px-3 py-2 text-gray-700 hover:bg-gray-50">Recipes</a>
+                                        <a href="Dashboard_Page.html"
+                                            class="rounded-md px-3 py-2 text-gray-700 hover:bg-gray-50">Meal Planner</a>
+                                        <a href="profile_page.html"
+                                            class="rounded-md px-3 py-2 text-gray-700 hover:bg-gray-50">Profile</a>
+                                        <a href="index.html"
+                                            class="mt-2 inline-flex items-center justify-center rounded-md bg-emerald-600 px-3 py-2 text-white hover:bg-emerald-700">Login</a>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -323,6 +337,11 @@
             </main>
         </div>
     </div>
+    <footer class="mt-auto border-t border-gray-200 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <p class="text-sm text-gray-600">© 2025 MealPlanner. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 
 </html>

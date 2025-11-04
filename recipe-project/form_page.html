@@ -42,44 +42,59 @@
     <div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark font-display group/design-root overflow-x-hidden"
         style='font-family: Manrope, "Noto Sans", sans-serif;'>
         <div class="layout-container flex h-full grow flex-col">
+            <!-- Navbar من كود زميلك - بدون أي تعديل -->
             <header
-                class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/20 px-4 sm:px-10 py-3 font-display dark:border-primary/30">
-                <div class="flex items-center gap-8">
-                    <div class="flex items-center gap-4 text-black dark:text-white">
-                        <div class="size-6 text-primary">
-                            <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_6_319)">
-                                    <path
-                                        d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
-                                        fill="currentColor"></path>
-                                </g>
-                                <defs>
-                                    <clippath id="clip0_6_319">
-                                        <rect fill="white" height="48" width="48"></rect>
-                                    </clippath>
-                                </defs>
-                            </svg>
+                class="border-b border-gray-200 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-40">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between h-16">
+                        <a href="home.html" class="flex items-center gap-2">
+                            <span
+                                class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500 text-white font-bold">M</span>
+                            <span class="font-semibold text-lg">MealPlanner</span>
+                        </a>
+                        <nav class="hidden md:flex items-center gap-8 text-sm">
+                            <a href="home.html" class="text-gray-700 hover:text-emerald-600">Home</a>
+                            <a href="#" class="text-gray-700 hover:text-emerald-600">Recipes</a>
+                            <a href="Dashboard_Page.html" class="text-gray-700 hover:text-emerald-600">Meal Planner</a>
+                            <a href="profile_page.html" class="text-gray-700 hover:text-emerald-600">Profile</a>
+                        </nav>
+                        <div class="hidden md:flex items-center gap-3">
+                            <a href="index.html"
+                                class="inline-flex items-center rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">Login</a>
                         </div>
-                        <h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">RecipeFinder</h2>
-                    </div>
-                </div>
-                <div class="hidden lg:flex flex-1 justify-center items-center gap-9">
-                    <a class="text-black dark:text-white text-sm font-medium leading-normal" href="#">Discover</a>
-                    <a class="text-black dark:text-white text-sm font-medium leading-normal" href="#">My Recipes</a>
-                    <a class="text-black dark:text-white text-sm font-medium leading-normal" href="#">Meal Planner</a>
-                    <a class="text-primary dark:text-primary text-sm font-bold leading-normal" href="#">Add Recipe</a>
-                </div>
-                <div class="flex items-center justify-end gap-4">
-                    <button
-                        class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-primary/20 text-black dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0">
-                        <span class="material-symbols-outlined text-xl">notifications</span>
-                    </button>
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-                        data-alt="User profile picture"
-                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDD1-LSbzWQ48VhLgisMMUtMXMm8pczlZDc1S0n65_5ULTH59cvv_qyFFPyGhQs-zCFPztk1iZ_ioR4u4fuK31dS24PyjMh-t3p9UY32AHaJcLmGON6n2nbLZcQl8THbsw3zDM2QAhrWWBobQhUpSUvJvpftpEL3ueWrO5_BcB2aQ57Znvihox0atcIyelD4boWG6T92pockZmZtkWnoFBSde4MAB-atW9KRMoUFJumD0nOAnz9LSowOMMsifX_7NRlbBT2sStV4SL-");'>
+                        <!-- Mobile menu toggle (no JS) -->
+                        <div class="md:hidden">
+                            <input id="nav-toggle" type="checkbox" class="peer hidden" style="display:none" />
+                            <label for="nav-toggle" aria-label="Open menu"
+                                class="inline-flex md:hidden h-9 w-9 items-center justify-center rounded-md ring-1 ring-inset ring-gray-300 text-gray-700 hover:bg-gray-50">
+                                <span class="block md:hidden h-4 w-4">
+                                    <span class="block h-0.5 w-4 bg-gray-700"></span>
+                                    <span class="block h-0.5 w-4 bg-gray-700 mt-1"></span>
+                                    <span class="block h-0.5 w-4 bg-gray-700 mt-1"></span>
+                                </span>
+                            </label>
+                            <div class="absolute left-0 right-0 mt-2 hidden peer-checked:block">
+                                <div class="mx-4 rounded-lg border border-gray-200 bg-white shadow-lg">
+                                    <nav class="flex flex-col p-3 text-sm">
+                                        <a href="home.html"
+                                            class="rounded-md px-3 py-2 text-gray-700 hover:bg-gray-50">Home</a>
+                                        <a href="/"
+                                            class="rounded-md px-3 py-2 text-gray-700 hover:bg-gray-50">Recipes</a>
+                                        <a href="Dashboard_Page.html"
+                                            class="rounded-md px-3 py-2 text-gray-700 hover:bg-gray-50">Meal
+                                            Planner</a>
+                                        <a href="profile_page.html"
+                                            class="rounded-md px-3 py-2 text-gray-700 hover:bg-gray-50">Profile</a>
+                                        <a href="index.html"
+                                            class="mt-2 inline-flex items-center justify-center rounded-md bg-emerald-600 px-3 py-2 text-white hover:bg-emerald-700">Login</a>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </header>
+
             <main class="flex flex-1 justify-center py-5 sm:py-10 px-4">
                 <div class="layout-content-container flex flex-col w-full max-w-4xl flex-1 gap-8">
                     <div class="flex flex-wrap justify-between gap-3 p-4">
@@ -306,6 +321,11 @@
             </main>
         </div>
     </div>
+    <footer class="mt-auto border-t border-gray-200 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <p class="text-sm text-gray-600">© 2025 MealPlanner. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 
 </html>
