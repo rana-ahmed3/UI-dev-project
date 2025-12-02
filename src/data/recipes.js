@@ -1,10 +1,15 @@
+import lemonChickenImg from '../assets/LemonHerbRoastedChicken.png';
+import mediterraneanSaladImg from '../assets/MediterraneanSalad.png';
+import pastaAlfredoImg from '../assets/CreamyPastaAlfredo.png';
+import veggieStirFryImg from '../assets/VeggieStir-Fry.png';
+
 export const recipes = [
   {
     id: 'lemon-herb-chicken',
     title: 'Lemon Herb Roasted Chicken',
-    shortDescription: 'A bright and zesty roasted chicken that’s simple and satisfying.',
+    shortDescription: "A bright and zesty roasted chicken that's simple and satisfying.",
     cardDescription: 'Bright, zesty chicken perfect for weeknights.',
-    image: '/src/assets/LemonHerbRoastedChicken.png',
+    image: lemonChickenImg,
     prepTime: '15 mins',
     cookTime: '45 mins',
     servings: '4',
@@ -29,19 +34,19 @@ export const recipes = [
     id: 'mediterranean-salad',
     title: 'Mediterranean Salad',
     shortDescription: 'Crisp veggies, olives, and tangy feta.',
-    image: '/src/assets/MediterraneanSalad.png',
+    image: mediterraneanSaladImg,
   },
   {
     id: 'creamy-pasta-alfredo',
     title: 'Creamy Pasta Alfredo',
     shortDescription: 'Comforting and creamy with parmesan.',
-    image: '/src/assets/CreamyPastaAlfredo.png',
+    image: pastaAlfredoImg,
   },
   {
     id: 'veggie-stir-fry',
     title: 'Veggie Stir-Fry',
     shortDescription: 'Colorful veggies with a savory sauce.',
-    image: '/src/assets/VeggieStir-Fry.png',
+    image: veggieStirFryImg,
   },
 ];
 

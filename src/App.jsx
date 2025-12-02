@@ -10,6 +10,14 @@ import Dashboard from './pages/MealPlanner';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 
+// Wrapper components for pages that need Layout
+const RecipesWithLayout = () => <Layout><Recipes /></Layout>;
+const AddRecipeWithLayout = () => <Layout><AddRecipe /></Layout>;
+const DashboardWithLayout = () => <Layout><Dashboard /></Layout>;
+const ProfileWithLayout = () => <Layout><Profile /></Layout>;
+const LoginWithLayout = () => <Layout><Login /></Layout>;
+const SignupWithLayout = () => <Layout><Signup /></Layout>;
+
 function App() {
     return (
         <Router>
@@ -19,12 +27,12 @@ function App() {
                 <Route path="/recipe/:id" element={<RecipeDetails />} />
                 
                 {/* Other pages use Layout */}
-                <Route path="/recipes" element={<Layout><Recipes /></Layout>} />
-                <Route path="/add-recipe" element={<Layout><AddRecipe /></Layout>} />
-                <Route path="/meal-planner" element={<Layout><Dashboard /></Layout>} />
-                <Route path="/profile" element={<Layout><Profile /></Layout>} />
-                <Route path="/login" element={<Layout><Login /></Layout>} />
-                <Route path="/signup" element={<Layout><Signup /></Layout>} />
+                <Route path="/recipes" element={<RecipesWithLayout />} />
+                <Route path="/add-recipe" element={<AddRecipeWithLayout />} />
+                <Route path="/meal-planner" element={<DashboardWithLayout />} />
+                <Route path="/profile" element={<ProfileWithLayout />} />
+                <Route path="/login" element={<LoginWithLayout />} />
+                <Route path="/signup" element={<SignupWithLayout />} />
             </Routes>
         </Router>
     );
