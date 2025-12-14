@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
-
-
-
+import { Link } from 'react-router-dom';
+import { useRecipe } from '../context/RecipeContext';
+import { recipes as defaultRecipes } from '../data/recipes';
 
 //filter, search, sort, first page, favourite, num of recipies, and toggle button
 
@@ -18,17 +18,11 @@ const Recipes = () => {
     const [showFavorites, setShowFavorites] = useState(false);
     const recipesPerPage = 4;       
 
-    const [favorites, setFavorites] = useState([]);        
+    // Use RecipeContext for favorites and custom recipes
+    const { favorites, toggleFavorite, isFavorite, customRecipes } = useRecipe();
 
-    const toggleFavorite = (recipeId) => {
-        setFavorites(prev =>
-            prev.includes(recipeId)
-                ? prev.filter(id => id !== recipeId)
-                : [...prev, recipeId]
-        );
-    };
-
-    const recipes = [
+    // Hardcoded recipes (from teammates)
+    const hardcodedRecipes = [
         // Italian
         {
             id: 1,
@@ -242,6 +236,35 @@ const Recipes = () => {
         }
     ];
 
+    // Merge all recipes: hardcoded + default + custom
+    const recipes = useMemo(() => {
+        // Convert default recipes to the format used in this page
+        const convertedDefaultRecipes = defaultRecipes.map(recipe => ({
+            id: recipe.id,
+            name: recipe.title,
+            time: recipe.cookTime || recipe.prepTime || 'N/A',
+            difficulty: 'Medium', // Default
+            image: recipe.image,
+            cuisine: recipe.cuisine || 'Other',
+            mealType: recipe.mealType || 'Dinner',
+            dietary: recipe.dietary || []
+        }));
+
+        // Convert custom recipes to the format used in this page
+        const convertedCustomRecipes = customRecipes.map(recipe => ({
+            id: recipe.id,
+            name: recipe.name || recipe.title,
+            time: recipe.time || 'N/A',
+            difficulty: recipe.difficulty || 'Medium',
+            image: recipe.image,
+            cuisine: recipe.cuisine || recipe.cuisineType || 'Other',
+            mealType: recipe.mealType || 'Dinner',
+            dietary: recipe.dietary || recipe.dietaryRestrictions || []
+        }));
+
+        return [...hardcodedRecipes, ...convertedDefaultRecipes, ...convertedCustomRecipes];
+    }, [customRecipes]); // Only depend on customRecipes since others are static
+
     //convert time string to minutes
     const convertTimeToMinutes = (timeString) => {
         if (!timeString) return 0;
@@ -274,7 +297,7 @@ const Recipes = () => {
     const filteredAndSortedRecipes = useMemo(() => {
         let filtered = recipes.filter(recipe => {
             // show favorites filter
-            if (showFavorites && !favorites.includes(recipe.id)) {
+            if (showFavorites && !isFavorite(recipe.id)) {
                 return false;
             }
 
@@ -300,8 +323,8 @@ const Recipes = () => {
             case 'popular':
                 //sort by popularity 
                 filtered.sort((a, b) => {
-                    const aFav = favorites.includes(a.id);
-                    const bFav = favorites.includes(b.id);
+                    const aFav = isFavorite(a.id);
+                    const bFav = isFavorite(b.id);
                     if (aFav && !bFav) return -1;
                     if (!aFav && bFav) return 1;
                     return b.id - a.id;
@@ -341,11 +364,11 @@ const Recipes = () => {
     };
 
     return (
-        <div className="flex flex-col md:flex-row gap-8 lg:gap-12">
+        <div className="flex flex-col md:flex-row gap-8 lg:gap-12 px-4 sm:px-6 lg:px-8 py-8">
             {/* sidebar Filters */}
             <aside className="w-full md:w-64 lg:w-72 flex-shrink-0">
                 <div className="sticky top-28 space-y-6">
-                    <h3 className="text-lg font-bold text-slate-900">Filters</h3>
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white">Filters</h3>
 
                     {/* favorites filter */}
                     <div className="space-y-4">
@@ -354,9 +377,9 @@ const Recipes = () => {
                                 setShowFavorites(!showFavorites);
                                 setCurrentPage(1);
                             }}
-                            className={`w-full px-4 py-2 text-sm rounded-lg flex items-center gap-2 ${showFavorites
-                                ? 'bg-red-100 text-red-700 font-medium'
-                                : 'bg-slate-200 hover:bg-red-100 text-slate-700 hover:text-red-700'
+                                    className={`w-full px-4 py-2 text-sm rounded-lg flex items-center gap-2 ${showFavorites
+                                ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 font-medium'
+                                : 'bg-slate-200 dark:bg-gray-700 hover:bg-red-100 dark:hover:bg-red-900/30 text-slate-700 dark:text-gray-300 hover:text-red-700 dark:hover:text-red-400'
                                 }`}
                         >
                             <span className="material-symbols-outlined text-xl">
@@ -367,7 +390,7 @@ const Recipes = () => {
                     </div>
 
                     <div className="space-y-4">
-                        <h4 className="text-sm font-semibold text-slate-600">Cuisine</h4>
+                        <h4 className="text-sm font-semibold text-slate-600 dark:text-gray-400">Cuisine</h4>
                         <div className="flex flex-wrap gap-2">
                             {['Italian', 'Mexican', 'Japanese', 'Indian', 'American', 'Mediterranean'].map(cuisine => (
                                 <button
@@ -377,8 +400,8 @@ const Recipes = () => {
                                         setCurrentPage(1);
                                     }}
                                     className={`px-3 py-1 text-sm rounded-full ${filters.cuisine === cuisine
-                                        ? 'bg-green-100 text-green-700 font-medium'
-                                        : 'bg-slate-200 hover:bg-green-100 text-slate-700 hover:text-green-700'
+                                        ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-medium'
+                                        : 'bg-slate-200 dark:bg-gray-700 hover:bg-green-100 dark:hover:bg-green-900/30 text-slate-700 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400'
                                         }`}
                                 >
                                     {cuisine}
@@ -388,7 +411,7 @@ const Recipes = () => {
                     </div>
 
                     <div className="space-y-4">
-                        <h4 className="text-sm font-semibold text-slate-600">Meal Type</h4>
+                        <h4 className="text-sm font-semibold text-slate-600 dark:text-gray-400">Meal Type</h4>
                         <div className="flex flex-wrap gap-2">
                             {['Breakfast', 'Lunch', 'Dinner', 'Dessert'].map(mealType => (
                                 <button
@@ -409,7 +432,7 @@ const Recipes = () => {
                     </div>
 
                     <div className="space-y-4">
-                        <h4 className="text-sm font-semibold text-slate-600">Dietary</h4>
+                        <h4 className="text-sm font-semibold text-slate-600 dark:text-gray-400">Dietary</h4>
                         <div className="flex flex-wrap gap-2">
                             {['Vegetarian', 'Vegan', 'Gluten-Free'].map(diet => (
                                 <button
@@ -424,8 +447,8 @@ const Recipes = () => {
                                         setCurrentPage(1);
                                     }}
                                     className={`px-3 py-1 text-sm rounded-full ${filters.dietary.includes(diet)
-                                        ? 'bg-green-100 text-green-700 font-medium'
-                                        : 'bg-slate-200 hover:bg-green-100 text-slate-700 hover:text-green-700'
+                                        ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-medium'
+                                        : 'bg-slate-200 dark:bg-gray-700 hover:bg-green-100 dark:hover:bg-green-900/30 text-slate-700 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400'
                                         }`}
                                 >
                                     {diet}
@@ -436,7 +459,7 @@ const Recipes = () => {
 
                     <button
                         onClick={clearFilters}
-                        className="w-full text-center text-sm font-medium text-slate-600 hover:text-green-600"
+                        className="w-full text-center text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400"
                     >
                         Clear Filters
                     </button>
@@ -447,10 +470,10 @@ const Recipes = () => {
             <div className="flex-1 min-w-0">
                 <div className="space-y-6">
                     <div className="flex flex-col gap-4">
-                        <h1 className="text-4xl font-black leading-tight tracking-[-0.033em] text-slate-900">
+                        <h1 className="text-4xl font-black leading-tight tracking-[-0.033em] text-slate-900 dark:text-white">
                             {showFavorites ? 'Favorite Recipes' : 'Discover Recipes'}
                         </h1>
-                        <p className="text-slate-600">
+                        <p className="text-slate-600 dark:text-gray-400">
                             {showFavorites
                                 ? 'Your saved favorite recipes'
                                 : 'Explore our kitchen and find your next favorite meal.'
@@ -458,8 +481,8 @@ const Recipes = () => {
                         </p>
                     </div>
 
-                    <div className="sticky top-[73px] z-10 bg-green-50 py-4 -my-4">
-                        <div className="flex w-full items-stretch rounded-xl h-14 shadow-sm bg-white">
+                    <div className="sticky top-[73px] z-10 bg-green-50 dark:bg-gray-800 py-4 -my-4">
+                        <div className="flex w-full items-stretch rounded-xl h-14 shadow-sm bg-white dark:bg-gray-700">
                             <div className="text-green-600 flex items-center justify-center pl-4 rounded-l-xl">
                                 <span className="material-symbols-outlined text-2xl">search</span>
                             </div>
@@ -469,21 +492,21 @@ const Recipes = () => {
                                     setSearchTerm(e.target.value);
                                     setCurrentPage(1);
                                 }}
-                                className="flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 border-none bg-transparent h-full placeholder:text-slate-400 px-4 rounded-l-none pl-2 text-base font-normal leading-normal"
+                                className="flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-slate-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 border-none bg-transparent h-full placeholder:text-slate-400 dark:placeholder:text-gray-500 px-4 rounded-l-none pl-2 text-base font-normal leading-normal"
                                 placeholder="Search for recipes, ingredients, or keywords..."
                             />
                         </div>
                     </div>
 
                     <div className="flex justify-between items-center">
-                        <p className="text-sm text-slate-500">
+                        <p className="text-sm text-slate-500 dark:text-gray-400">
                             Showing {currentRecipes.length} of {filteredAndSortedRecipes.length} recipes
                         </p>
                         <div className="relative">
                             <select
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
-                                className="appearance-none bg-white border border-slate-300 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                                className="appearance-none bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg pl-3 pr-8 py-2 text-sm text-slate-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500"
                             >
                                 <option value="newest">Sort by: Newest</option>
                                 <option value="popular">Sort by: Popular</option>
@@ -495,40 +518,48 @@ const Recipes = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {currentRecipes.map(recipe => (
-                            <div key={recipe.id} className="flex flex-col gap-3 group">
+                            <Link 
+                                key={recipe.id} 
+                                to={`/recipe/${recipe.id}`}
+                                className="flex flex-col gap-3 group cursor-pointer block"
+                            >
                                 <div className="relative overflow-hidden rounded-xl">
                                     <div
                                         className="w-full bg-center bg-cover aspect-[4/3] rounded-xl transition-transform duration-300 group-hover:scale-105"
                                         style={{ backgroundImage: `url(${recipe.image})` }}
                                     ></div>
                                     <button
-                                        onClick={() => toggleFavorite(recipe.id)}
-                                        className="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center transition-colors"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            toggleFavorite(recipe.id);
+                                        }}
+                                        className="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm flex items-center justify-center transition-colors z-10"
                                     >
                                         <span
-                                            className={`material-symbols-outlined text-xl ${favorites.includes(recipe.id) ? 'text-red-500' : 'text-gray-600 hover:text-red-500'
+                                            className={`material-symbols-outlined text-xl ${isFavorite(recipe.id) ? 'text-red-500' : 'text-gray-600 dark:text-gray-400 hover:text-red-500'
                                                 }`}
-                                            style={favorites.includes(recipe.id) ? { fontVariationSettings: "'FILL' 1" } : {}}
+                                            style={isFavorite(recipe.id) ? { fontVariationSettings: "'FILL' 1" } : {}}
                                         >
                                             favorite
                                         </span>
                                     </button>
                                 </div>
                                 <div>
-                                    <p className="text-slate-900 text-base font-bold leading-normal">{recipe.name}</p>
-                                    <p className="text-slate-500 text-sm font-normal leading-normal">{recipe.time} • {recipe.difficulty}</p>
+                                    <p className="text-slate-900 dark:text-white text-base font-bold leading-normal group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">{recipe.name}</p>
+                                    <p className="text-slate-500 dark:text-gray-400 text-sm font-normal leading-normal">{recipe.time} • {recipe.difficulty}</p>
                                 </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
 
                     {currentRecipes.length === 0 && (
                         <div className="text-center py-12">
-                            <span className="material-symbols-outlined text-6xl text-slate-300 mb-4">
+                            <span className="material-symbols-outlined text-6xl text-slate-300 dark:text-gray-600 mb-4">
                                 restaurant
                             </span>
-                            <p className="text-slate-500 text-lg">No recipes found</p>
-                            <p className="text-slate-400">Try changing your filters or search term</p>
+                            <p className="text-slate-500 dark:text-gray-400 text-lg">No recipes found</p>
+                            <p className="text-slate-400 dark:text-gray-500">Try changing your filters or search term</p>
                         </div>
                     )}
 
@@ -539,7 +570,7 @@ const Recipes = () => {
                                 <button
                                     onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                                     disabled={currentPage === 1}
-                                    className="flex items-center justify-center h-9 w-9 rounded-lg bg-white border border-slate-300 text-slate-500 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="flex items-center justify-center h-9 w-9 rounded-lg bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 text-slate-500 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     <span className="material-symbols-outlined text-xl">chevron_left</span>
                                 </button>
@@ -553,14 +584,14 @@ const Recipes = () => {
                                                 onClick={() => handlePageChange(page)}
                                                 className={`flex items-center justify-center h-9 w-9 rounded-lg text-sm ${currentPage === page
                                                         ? 'bg-green-600 text-white font-bold'
-                                                        : 'bg-white text-slate-500 hover:bg-slate-100'
+                                                        : 'bg-white dark:bg-gray-700 text-slate-500 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-gray-600'
                                                     }`}
                                             >
                                                 {page}
                                             </button>
                                         );
                                     } else if (page === currentPage - 2 || page === currentPage + 2) {
-                                        return <span key={page} className="text-slate-500">...</span>;
+                                        return <span key={page} className="text-slate-500 dark:text-gray-400">...</span>;
                                     }
                                     return null;
                                 })}
@@ -568,7 +599,7 @@ const Recipes = () => {
                                 <button
                                     onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                                     disabled={currentPage === totalPages}
-                                    className="flex items-center justify-center h-9 w-9 rounded-lg bg-white border border-slate-300 text-slate-500 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="flex items-center justify-center h-9 w-9 rounded-lg bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 text-slate-500 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     <span className="material-symbols-outlined text-xl">chevron_right</span>
                                 </button>
