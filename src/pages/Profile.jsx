@@ -112,20 +112,18 @@ const Profile = () => {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen">
-
-      <main className="max-w-4xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        {/* Title */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Profile Settings</h1>
-          <p className="text-gray-600 mt-2">Manage your account settings and preferences</p>
+    <div className="max-w-4xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      {/* Title */}
+      <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Profile Settings</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-2">Manage your account settings and preferences</p>
         </div>
 
         {/* Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* at left side */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
               <div className="text-center">
                 <div className="w-24 h-24 mx-auto mb-4">
                   <img 
@@ -134,11 +132,11 @@ const Profile = () => {
                     className="w-full h-full object-cover rounded-full"
                   />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                   {userData.firstName} {userData.lastName}
                 </h3>
-                <p className="text-gray-600 text-sm">{userData.email}</p>
-                <p className="text-green-600 text-sm mt-2">
+                <p className="text-gray-600 dark:text-gray-400 text-sm">{userData.email}</p>
+                <p className="text-green-600 dark:text-green-400 text-sm mt-2">
                   member since {userData.joinDate}
                 </p>
               </div>
@@ -148,15 +146,15 @@ const Profile = () => {
           {/* right side*/}
           <div className="lg:col-span-2 space-y-6">
             <form onSubmit={handleSubmit}>
-              <div className="bg-white rounded-lg shadow">
-                <div className="px-6 py-4 border-b border-gray-200">
-                  <h2 className="text-xl font-bold text-gray-900">Personal Information</h2>
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
+                <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white">Personal Information</h2>
                 </div>
                 <div className="p-6 space-y-4">
                   {/* data name */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         First name
                       </label>
                       <input 
@@ -164,16 +162,16 @@ const Profile = () => {
                         name="firstName"
                         value={formData.firstName}
                         onChange={handleInputChange}
-                        className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500 ${
-                          errors.firstName ? 'border-red-500' : 'border-gray-300'
+                        className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-green-500 ${
+                          errors.firstName ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                         }`}
                       />
                       {errors.firstName && (
-                        <p className="mt-1 text-sm text-red-600">{errors.firstName}</p>
+                        <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.firstName}</p>
                       )}
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         Last name
                       </label>
                       <input 
@@ -181,8 +179,8 @@ const Profile = () => {
                         name="lastName"
                         value={formData.lastName}
                         onChange={handleInputChange}
-                        className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500 ${
-                          errors.lastName ? 'border-red-500' : 'border-gray-300'
+                        className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-green-500 ${
+                          errors.lastName ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                         }`}
                       />
                       {errors.lastName && (
@@ -193,7 +191,7 @@ const Profile = () => {
                   
                   {/* email */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                       Email
                     </label>
                     <input 
@@ -201,8 +199,8 @@ const Profile = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500 ${
-                        errors.email ? 'border-red-500' : 'border-gray-300'
+                      className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-green-500 ${
+                        errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                       }`}
                     />
                     {errors.email && (
@@ -212,7 +210,7 @@ const Profile = () => {
                   
                   {/* bio*/}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                       Bio
                     </label>
                     <textarea 
@@ -221,14 +219,14 @@ const Profile = () => {
                       value={formData.bio}
                       onChange={handleInputChange}
                       placeholder="Tell us about yourself..."
-                      className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500 ${
-                        errors.bio ? 'border-red-500' : 'border-gray-300'
+                      className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-green-500 ${
+                        errors.bio ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                       }`}
                     />
                     {errors.bio && (
-                      <p className="mt-1 text-sm text-red-600">{errors.bio}</p>
+                      <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.bio}</p>
                     )}
-                    <p className="mt-1 text-sm text-gray-500">
+                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                       {formData.bio.length}/500 characters
                     </p>
                   </div>
@@ -241,10 +239,10 @@ const Profile = () => {
                 {saveStatus && (
                   <div className={`text-sm font-medium ${
                     saveStatus.includes('Error') || saveStatus.includes('Please fix') 
-                      ? 'text-red-600' 
+                      ? 'text-red-600 dark:text-red-400' 
                       : saveStatus.includes('Saving')
-                      ? 'text-blue-600'
-                      : 'text-green-600'
+                      ? 'text-blue-600 dark:text-blue-400'
+                      : 'text-green-600 dark:text-green-400'
                   }`}>
                     {saveStatus}
                   </div>
@@ -256,7 +254,7 @@ const Profile = () => {
                     <button
                       type="button"
                       onClick={handleCancel}
-                      className="bg-gray-300 hover:bg-gray-400 text-gray-700 font-medium py-2 px-6 rounded-lg transition duration-300 mt-3 "
+                      className="bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-medium py-2 px-6 rounded-lg transition duration-300 mt-3 "
                     >
                       Cancel
                     </button>
@@ -277,7 +275,6 @@ const Profile = () => {
             </form>
           </div>
         </div>
-      </main>
     </div>
   );
 };

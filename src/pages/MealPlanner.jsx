@@ -183,18 +183,18 @@ const Dashboard = () => {
     <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
       {/* title */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Meal Planner Dashboard</h1>
-        <p className="text-gray-600 mt-2">Your weekly meal planning overview</p>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Meal Planner Dashboard</h1>
+        <p className="text-gray-600 dark:text-gray-400 mt-2">Your weekly meal planning overview</p>
       </div>
 
       {/* weekly meal plan */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 mb-8">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-900">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 mb-8">
+        <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">
             <i className="fa-solid fa-calendar-week text-green-600 mr-2"></i>
             Weekly Meal Plan Summary
           </h2>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
             Click on any meal to edit. Click the X icon to delete.
           </p>
         </div>
@@ -208,7 +208,7 @@ const Dashboard = () => {
 
               return (
                 <div key={day.key} className="text-center">
-                  <h3 className="font-semibold text-gray-900 mb-3">{day.label}</h3>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-3">{day.label}</h3>
                   <div className="space-y-2">
                     {/* Breakfast */}
                     <div 
@@ -221,7 +221,7 @@ const Dashboard = () => {
                         }
                       }}
                     >
-                      <p className="text-xs font-medium text-green-800 mb-1 capitalize flex justify-between items-center">
+                      <p className="text-xs font-medium text-green-800 dark:text-green-300 mb-1 capitalize flex justify-between items-center">
                         <span>breakfast</span>
                         {hasBreakfast && (
                           <button 
@@ -235,7 +235,7 @@ const Dashboard = () => {
                           </button>
                         )}
                       </p>
-                      <p className={`text-sm text-green-700 ${!hasBreakfast ? 'italic text-gray-400' : ''}`}>
+                      <p className={`text-sm text-green-700 dark:text-green-400 ${!hasBreakfast ? 'italic text-gray-400 dark:text-gray-500' : ''}`}>
                         {hasBreakfast ? dayData.breakfast : '+ Add breakfast'}
                       </p>
                     </div>
@@ -251,7 +251,7 @@ const Dashboard = () => {
                         }
                       }}
                     >
-                      <p className="text-xs font-medium text-blue-800 mb-1 capitalize flex justify-between items-center">
+                      <p className="text-xs font-medium text-blue-800 dark:text-blue-300 mb-1 capitalize flex justify-between items-center">
                         <span>lunch</span>
                         {hasLunch && (
                           <button 
@@ -265,7 +265,7 @@ const Dashboard = () => {
                           </button>
                         )}
                       </p>
-                      <p className={`text-sm text-blue-700 ${!hasLunch ? 'italic text-gray-400' : ''}`}>
+                      <p className={`text-sm text-blue-700 dark:text-blue-400 ${!hasLunch ? 'italic text-gray-400 dark:text-gray-500' : ''}`}>
                         {hasLunch ? dayData.lunch : '+ Add lunch'}
                       </p>
                     </div>
@@ -281,7 +281,7 @@ const Dashboard = () => {
                         }
                       }}
                     >
-                      <p className="text-xs font-medium text-purple-800 mb-1 capitalize flex justify-between items-center">
+                      <p className="text-xs font-medium text-purple-800 dark:text-purple-300 mb-1 capitalize flex justify-between items-center">
                         <span>dinner</span>
                         {hasDinner && (
                           <button 
@@ -295,7 +295,7 @@ const Dashboard = () => {
                           </button>
                         )}
                       </p>
-                      <p className={`text-sm text-purple-700 ${!hasDinner ? 'italic text-gray-400' : ''}`}>
+                      <p className={`text-sm text-purple-700 dark:text-purple-400 ${!hasDinner ? 'italic text-gray-400 dark:text-gray-500' : ''}`}>
                         {hasDinner ? dayData.dinner : '+ Add dinner'}
                       </p>
                     </div>
@@ -310,11 +310,11 @@ const Dashboard = () => {
       {/* edit/delete modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+          <div className="relative top-20 mx-auto p-5 border border-gray-300 dark:border-gray-600 w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
             <div className="mt-3">
               {/* modal title */}
-              <div className="flex justify-between items-center pb-3 border-b">
-                <h3 className="text-lg font-bold text-gray-900">
+              <div className="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                   {modalData.action === 'edit' 
                     ? `${modalData.currentMeal ? 'Edit' : 'Add'} ${modalData.mealType} for ${modalData.dayLabel}`
                     : `Delete ${modalData.mealType} from ${modalData.dayLabel}`
@@ -322,7 +322,7 @@ const Dashboard = () => {
                 </h3>
                 <button 
                   onClick={closeModal}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
                 >
                   <i className="fa-solid fa-xmark"></i>
                 </button>
@@ -333,14 +333,14 @@ const Dashboard = () => {
                 {modalData.action === 'edit' ? (
                   <div>
                     <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Meal Name
                       </label>
                       <input
                         type="text"
                         value={newMealText}
                         onChange={(e) => setNewMealText(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
                         placeholder={`Enter ${modalData.mealType} name`}
                         autoFocus
                       />
@@ -349,7 +349,7 @@ const Dashboard = () => {
                       <button
                         type="button"
                         onClick={closeModal}
-                        className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                        className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
                       >
                         Cancel
                       </button>
@@ -377,7 +377,7 @@ const Dashboard = () => {
                       <button
                         type="button"
                         onClick={closeModal}
-                        className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                        className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
                       >
                         Cancel
                       </button>
@@ -396,11 +396,11 @@ const Dashboard = () => {
         </div>
       )}
 
-      {/* charts  */}
+        {/* charts  */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         {/* meal type distribution  */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
             <i className="fa-solid fa-chart-pie text-green-600 mr-2"></i>
             Meal Type Distribution
           </h2>
@@ -411,13 +411,13 @@ const Dashboard = () => {
               <div className="flex justify-between text-sm mb-2">
                 <div className="flex items-center">
                   <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-                  <span className="font-medium text-gray-700">Breakfast</span>
+                  <span className="font-medium text-gray-700 dark:text-gray-300">Breakfast</span>
                 </div>
-                <span className="text-gray-500">
+                <span className="text-gray-500 dark:text-gray-400">
                   {mealStats.breakfast.percentage}% ({mealStats.breakfast.count} meals)
                 </span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-4">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
                 <div 
                   className="bg-green-500 h-4 rounded-full transition-all duration-500"
                   style={{ width: `${mealStats.breakfast.percentage}%` }}
@@ -436,7 +436,7 @@ const Dashboard = () => {
                   {mealStats.lunch.percentage}% ({mealStats.lunch.count} meals)
                 </span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-4">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
                 <div 
                   className="bg-blue-500 h-4 rounded-full transition-all duration-500"
                   style={{ width: `${mealStats.lunch.percentage}%` }}
@@ -455,7 +455,7 @@ const Dashboard = () => {
                   {mealStats.dinner.percentage}% ({mealStats.dinner.count} meals)
                 </span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-4">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
                 <div 
                   className="bg-purple-500 h-4 rounded-full transition-all duration-500"
                   style={{ width: `${mealStats.dinner.percentage}%` }}
@@ -464,10 +464,10 @@ const Dashboard = () => {
             </div>
           </div>
           
-          <div className="mt-6 p-4 rounded-lg bg-gray-50">
+          <div className="mt-6 p-4 rounded-lg bg-gray-50 dark:bg-gray-700/50">
             <div className="flex items-center">
-              <i className="fa-solid fa-circle-info text-gray-800 mr-3"></i>
-              <p className="text-sm text-gray-600">
+              <i className="fa-solid fa-circle-info text-gray-800 dark:text-gray-300 mr-3"></i>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 <span className="font-semibold">Total:</span> {totalMeals} meals planned this week
               </p>
             </div>
@@ -475,8 +475,8 @@ const Dashboard = () => {
         </div>
 
         {/* favorite recipes */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
             <i className="fa-solid fa-heart text-red-500 mr-2"></i>
             Favorite Recipes by Category
           </h2>
@@ -486,11 +486,11 @@ const Dashboard = () => {
               <div className="flex justify-between text-sm mb-2">
                 <div className="flex items-center">
                   <i className="fa-solid fa-utensils text-blue-500 mr-2"></i>
-                  <span className="font-medium text-gray-700">Main Courses</span>
+                  <span className="font-medium text-gray-700 dark:text-gray-300">Main Courses</span>
                 </div>
-                <span className="text-gray-500">12 recipes</span>
+                <span className="text-gray-500 dark:text-gray-400">12 recipes</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-3">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
                 <div 
                   className="bg-blue-600 h-3 rounded-full"
                   style={{ width: '60%' }}
@@ -507,7 +507,7 @@ const Dashboard = () => {
                 </div>
                 <span className="text-gray-500">8 recipes</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-3">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
                 <div 
                   className="bg-purple-600 h-3 rounded-full"
                   style={{ width: '40%' }}
@@ -524,7 +524,7 @@ const Dashboard = () => {
                 </div>
                 <span className="text-gray-500">5 recipes</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-3">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
                 <div 
                   className="bg-green-600 h-3 rounded-full"
                   style={{ width: '25%' }}
@@ -541,7 +541,7 @@ const Dashboard = () => {
                 </div>
                 <span className="text-gray-500">3 recipes</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-3">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
                 <div 
                   className="bg-orange-600 h-3 rounded-full"
                   style={{ width: '15%' }}
@@ -558,7 +558,7 @@ const Dashboard = () => {
                 </div>
                 <span className="text-gray-500">2 recipes</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-3">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
                 <div 
                   className="bg-red-600 h-3 rounded-full"
                   style={{ width: '10%' }}
@@ -568,8 +568,8 @@ const Dashboard = () => {
           </div>
           
           <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
-              <i className="fa-solid fa-circle-info text-gray-800 mr-1"></i>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              <i className="fa-solid fa-circle-info text-gray-800 dark:text-gray-300 mr-1"></i>
               <span className="font-semibold">Total:</span> 30 favorite recipes across 5 categories
             </p>
           </div>
