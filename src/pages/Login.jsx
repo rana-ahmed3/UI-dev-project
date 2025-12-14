@@ -96,16 +96,16 @@ const Login = () => {
             </div>
 
             {/* login*/}
-            <form onSubmit={handleSubmit} className="mt-8 space-y-6 bg-white bg-opacity-90 p-8 rounded-xl">
+            <form onSubmit={handleSubmit} className="mt-8 space-y-6 bg-white dark:bg-gray-800 bg-opacity-90 dark:bg-opacity-95 p-8 rounded-xl">
               {errors.submit && (
-                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
+                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg text-sm">
                   {errors.submit}
                 </div>
               )}
 
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     Email address
                   </label>
                   <input
@@ -115,17 +115,17 @@ const Login = () => {
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    className={`mt-1 block w-full px-3 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300 ${errors.email ? 'border-red-500' : 'border-gray-300'
+                    className={`mt-1 block w-full px-3 py-3 border rounded-lg shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300 ${errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                       }`}
                     placeholder="Enter your email"
                   />
                   {errors.email && (
-                    <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>
                   )}
                 </div>
 
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     Password
                   </label>
                   <input
@@ -135,12 +135,12 @@ const Login = () => {
                     required
                     value={formData.password}
                     onChange={handleInputChange}
-                    className={`mt-1 block w-full px-3 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300 ${errors.password ? 'border-red-500' : 'border-gray-300'
+                    className={`mt-1 block w-full px-3 py-3 border rounded-lg shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300 ${errors.password ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                       }`}
                     placeholder="Enter your password"
                   />
                   {errors.password && (
-                    <p className="mt-1 text-sm text-red-600">{errors.password}</p>
+                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.password}</p>
                   )}
                 </div>
               </div>
@@ -155,13 +155,13 @@ const Login = () => {
                     onChange={handleInputChange}
                     className="h-4 w-4 accent-green-500 rounded"
                   />
-                  <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+                  <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
                     Remember me
                   </label>
                 </div>
 
                 <div className="text-sm">
-                  <a href="#" className="font-medium text-green-600 hover:text-green-500 transition duration-300">
+                  <a href="#" className="font-medium text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300 transition duration-300">
                     Forgot password?
                   </a>
                 </div>
@@ -178,9 +178,9 @@ const Login = () => {
               </div>
 
               <div className="text-center">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   Don't have an account?
-                  <Link to="/signup" className="font-medium text-green-600 hover:text-green-500 transition duration-300 ml-1">
+                  <Link to="/signup" className="font-medium text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300 transition duration-300 ml-1">
                     Sign up here
                   </Link>
                 </p>

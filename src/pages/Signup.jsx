@@ -123,9 +123,9 @@ const Signup = () => {
           </div>
           
           {/* sign up */}
-          <form onSubmit={handleSubmit} className="mt-8 space-y-6 bg-white bg-opacity-90 p-8 rounded-xl shadow-2xl">
+          <form onSubmit={handleSubmit} className="mt-8 space-y-6 bg-white dark:bg-gray-800 bg-opacity-90 dark:bg-opacity-95 p-8 rounded-xl shadow-2xl">
             {errors.submit && (
-              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
+              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg text-sm">
                 {errors.submit}
               </div>
             )}
@@ -133,7 +133,7 @@ const Signup = () => {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     First name
                   </label>
                   <input 
@@ -143,17 +143,17 @@ const Signup = () => {
                     required 
                     value={formData.firstName}
                     onChange={handleInputChange}
-                    className={`mt-1 block w-full px-3 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300 ${
-                      errors.firstName ? 'border-red-500' : 'border-gray-300'
+                    className={`mt-1 block w-full px-3 py-3 border rounded-lg shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300 ${
+                        errors.firstName ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                     }`}
                     placeholder="Rana"
                   />
                   {errors.firstName && (
-                    <p className="mt-1 text-sm text-red-600">{errors.firstName}</p>
+                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.firstName}</p>
                   )}
                 </div>
                 <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     Last name
                   </label>
                   <input 
@@ -163,19 +163,19 @@ const Signup = () => {
                     required 
                     value={formData.lastName}
                     onChange={handleInputChange}
-                    className={`mt-1 block w-full px-3 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300 ${
-                      errors.lastName ? 'border-red-500' : 'border-gray-300'
+                    className={`mt-1 block w-full px-3 py-3 border rounded-lg shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300 ${
+                      errors.lastName ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                     }`}
                     placeholder="Ahmed"
                   />
                   {errors.lastName && (
-                    <p className="mt-1 text-sm text-red-600">{errors.lastName}</p>
+                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.lastName}</p>
                   )}
                 </div>
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Email address
                 </label>
                 <input 
@@ -185,8 +185,8 @@ const Signup = () => {
                   required 
                   value={formData.email}
                   onChange={handleInputChange}
-                  className={`mt-1 block w-full px-3 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-300 ${
-                    errors.email ? 'border-red-500' : 'border-gray-300'
+                  className={`mt-1 block w-full px-3 py-3 border rounded-lg shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-300 ${
+                        errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                   }`}
                   placeholder="s-rana.maaty@zewailcity.edu.eg"
                 />
@@ -196,7 +196,7 @@ const Signup = () => {
               </div>
               
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Password
                 </label>
                 <input 
@@ -206,18 +206,18 @@ const Signup = () => {
                   required 
                   value={formData.password}
                   onChange={handleInputChange}
-                  className={`mt-1 block w-full px-3 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300 ${
-                    errors.password ? 'border-red-500' : 'border-gray-300'
+                  className={`mt-1 block w-full px-3 py-3 border rounded-lg shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300 ${
+                    errors.password ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                   }`}
                   placeholder="Create a password"
                 />
                 {errors.password && (
-                  <p className="mt-1 text-sm text-red-600">{errors.password}</p>
+                  <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.password}</p>
                 )}
               </div>
               
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Confirm password
                 </label>
                 <input 
@@ -227,13 +227,13 @@ const Signup = () => {
                   required 
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
-                  className={`mt-1 block w-full px-3 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300 ${
-                    errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
+                  className={`mt-1 block w-full px-3 py-3 border rounded-lg shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300 ${
+                    errors.confirmPassword ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                   }`}
                   placeholder="Confirm your password"
                 />
                 {errors.confirmPassword && (
-                  <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>
+                  <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.confirmPassword}</p>
                 )}
               </div>
             </div>
@@ -248,12 +248,12 @@ const Signup = () => {
                 onChange={handleInputChange}
                 className="h-4 w-4 accent-green-500 rounded mt-1"
               />
-              <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
-                I agree to the <a href="#" className="text-green-600 hover:text-green-500 transition duration-300">Terms and Conditions</a>
+              <label htmlFor="terms" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                I agree to the <a href="#" className="text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300 transition duration-300">Terms and Conditions</a>
               </label>
             </div>
             {errors.terms && (
-              <p className="text-sm text-red-600">{errors.terms}</p>
+              <p className="text-sm text-red-600 dark:text-red-400">{errors.terms}</p>
             )}
 
             <div>
@@ -267,9 +267,9 @@ const Signup = () => {
             </div>
 
             <div className="text-center">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 Already have an account?
-                <Link to="/login" className="font-medium text-green-600 hover:text-green-500 transition duration-300 ml-1">
+                <Link to="/login" className="font-medium text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300 transition duration-300 ml-1">
                   Sign in here
                 </Link>
               </p>
