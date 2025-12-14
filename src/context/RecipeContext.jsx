@@ -23,6 +23,12 @@ export const RecipeProvider = ({ children }) => {
     return savedMealPlan ? JSON.parse(savedMealPlan) : [];
   });
 
+  // Initialize custom recipes (user-added recipes) from localStorage
+  const [customRecipes, setCustomRecipes] = useState(() => {
+    const savedRecipes = localStorage.getItem('customRecipes');
+    return savedRecipes ? JSON.parse(savedRecipes) : [];
+  });
+
   // Save favorites to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites));
@@ -32,6 +38,11 @@ export const RecipeProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('mealPlan', JSON.stringify(mealPlan));
   }, [mealPlan]);
+
+  // Save custom recipes to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('customRecipes', JSON.stringify(customRecipes));
+  }, [customRecipes]);
 
   // Toggle favorite: add if not in favorites, remove if already in favorites
   const toggleFavorite = (recipeId) => {
@@ -64,13 +75,29 @@ export const RecipeProvider = ({ children }) => {
     return mealPlan.includes(recipeId);
   };
 
+  // Add a new custom recipe
+  const addCustomRecipe = (recipe) => {
+    setCustomRecipes((prevRecipes) => {
+      // Check if recipe with same ID already exists
+      const exists = prevRecipes.some((r) => r.id === recipe.id);
+      if (exists) {
+        // Update existing recipe
+        return prevRecipes.map((r) => (r.id === recipe.id ? recipe : r));
+      }
+      // Add new recipe
+      return [...prevRecipes, recipe];
+    });
+  };
+
   return (
     <RecipeContext.Provider
       value={{
         favorites,
         mealPlan,
+        customRecipes,
         toggleFavorite,
         addToMealPlan,
+        addCustomRecipe,
         isFavorite,
         isInMealPlan,
       }}

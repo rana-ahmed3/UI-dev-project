@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import Toast from '../components/common/Toast';
+import { useRecipe } from '../context/RecipeContext';
 
 const AddRecipe = () => {
+    const { addCustomRecipe } = useRecipe();
     const [showCancelConfirm, setShowCancelConfirm] = useState(false);
     const [recipe, setRecipe] = useState({
         name: '',
@@ -52,8 +54,33 @@ const AddRecipe = () => {
             return;
         }
 
-        // send data 
-        console.log('Recipe saved:', recipe);
+        // Create recipe object with proper format
+        const recipeId = `custom-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        const recipeToSave = {
+            id: recipeId,
+            name: recipe.name,
+            title: recipe.name, // For compatibility
+            description: recipe.description,
+            shortDescription: recipe.description,
+            cardDescription: recipe.description,
+            cuisine: recipe.cuisineType,
+            cuisineType: recipe.cuisineType,
+            mealType: recipe.mealType,
+            dietary: recipe.dietaryRestrictions,
+            dietaryRestrictions: recipe.dietaryRestrictions,
+            time: recipe.nutrition.calories ? `${recipe.nutrition.calories} min` : 'N/A',
+            difficulty: 'Medium', // Default difficulty
+            image: imagePreview || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop',
+            ingredients: recipe.ingredients
+                .filter(ing => ing.name.trim())
+                .map(ing => `${ing.quantity} ${ing.unit} ${ing.name}`.trim()),
+            instructions: recipe.instructions.filter(inst => inst.trim()),
+            nutrition: recipe.nutrition,
+        };
+
+        // Save to Context (which saves to localStorage)
+        addCustomRecipe(recipeToSave);
+        console.log('Recipe saved:', recipeToSave);
 
         // reset form
         setRecipe({
@@ -268,13 +295,13 @@ const AddRecipe = () => {
             {/* confirm cancel modal */}
             {showCancelConfirm && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-lg p-6 max-w-sm mx-4">
-                        <h3 className="text-lg font-bold text-slate-900 mb-2">Cancel Changes?</h3>
-                        <p className="text-slate-600 mb-4">Are you sure you want to cancel? All changes will be lost.</p>
+                    <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-sm mx-4">
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Cancel Changes?</h3>
+                        <p className="text-slate-600 dark:text-gray-400 mb-4">Are you sure you want to cancel? All changes will be lost.</p>
                         <div className="flex justify-end gap-3">
                             <button
                                 onClick={cancelCancel}
-                                className="px-4 py-2 text-slate-700 hover:bg-slate-100 rounded-lg"
+                                className="px-4 py-2 text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-gray-700 rounded-lg"
                             >
                                 Keep Editing
                             </button>
@@ -292,10 +319,10 @@ const AddRecipe = () => {
 
             <div className="space-y-8">
                 <div className="flex flex-col gap-3">
-                    <h1 className="text-4xl font-black leading-tight tracking-[-0.033em] text-slate-900">
+                    <h1 className="text-4xl font-black leading-tight tracking-[-0.033em] text-slate-900 dark:text-white">
                         Add New Recipe
                     </h1>
-                    <p className="text-slate-600 text-base font-normal leading-normal">
+                    <p className="text-slate-600 dark:text-gray-400 text-base font-normal leading-normal">
                         Fill in the details below to add your recipe to the collection.
                     </p>
                 </div>
@@ -303,15 +330,15 @@ const AddRecipe = () => {
                 <form onSubmit={handleSubmit} className="space-y-8">
                     {/* recipe basics */}
                     <div className="space-y-6">
-                        <h3 className="text-xl font-bold text-slate-900 border-b border-green-200 pb-2">Recipe Basics</h3>
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-white border-b border-green-200 dark:border-green-800 pb-2">Recipe Basics</h3>
 
                         <div className="max-w-[480px]">
                             <label className="flex flex-col">
-                                <p className="text-slate-700 text-base font-medium pb-2">Recipe Name</p>
+                                <p className="text-slate-700 dark:text-gray-300 text-base font-medium pb-2">Recipe Name</p>
                                 <input
                                     value={recipe.name}
                                     onChange={(e) => handleInputChange('name', e.target.value)}
-                                    className="w-full rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 h-14 placeholder:text-slate-400 px-4 text-base font-normal"
+                                    className="w-full rounded-lg border border-green-300 dark:border-green-700 bg-white dark:bg-gray-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 h-14 placeholder:text-slate-400 dark:placeholder:text-gray-500 px-4 text-base font-normal"
                                     placeholder="e.g., Classic Lasagna"
                                 />
                             </label>
@@ -319,11 +346,11 @@ const AddRecipe = () => {
 
                         <div className="max-w-[480px]">
                             <label className="flex flex-col">
-                                <p className="text-slate-700 text-base font-medium pb-2">Recipe Description (Optional)</p>
+                                <p className="text-slate-700 dark:text-gray-300 text-base font-medium pb-2">Recipe Description (Optional)</p>
                                 <textarea
                                     value={recipe.description}
                                     onChange={(e) => handleInputChange('description', e.target.value)}
-                                    className="w-full rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 min-h-36 placeholder:text-slate-400 px-4 py-3 text-base font-normal"
+                                    className="w-full rounded-lg border border-green-300 dark:border-green-700 bg-white dark:bg-gray-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 min-h-36 placeholder:text-slate-400 dark:placeholder:text-gray-500 px-4 py-3 text-base font-normal"
                                     placeholder="A short and sweet description of your delicious recipe."
                                 />
                             </label>
@@ -331,7 +358,7 @@ const AddRecipe = () => {
 
                         <div className="flex flex-col">
                             <div
-                                className="flex flex-col items-center gap-6 rounded-lg border-2 border-dashed border-green-300 px-6 py-14 bg-white cursor-pointer"
+                                className="flex flex-col items-center gap-6 rounded-lg border-2 border-dashed border-green-300 dark:border-green-700 px-6 py-14 bg-white dark:bg-gray-800 cursor-pointer"
                                 onDragOver={handleDragOver}
                                 onDrop={handleDrop}
 
@@ -367,8 +394,8 @@ const AddRecipe = () => {
                                     </div>
                                 ) : (
                                     <div className="flex max-w-[480px] flex-col items-center gap-2">
-                                        <p className="text-slate-900 text-lg font-bold leading-tight text-center">Upload Recipe Image</p>
-                                        <p className="text-slate-500 text-sm font-normal leading-normal text-center">Drag and drop an image here, or click to browse files.</p>
+                                        <p className="text-slate-900 dark:text-white text-lg font-bold leading-tight text-center">Upload Recipe Image</p>
+                                        <p className="text-slate-500 dark:text-gray-400 text-sm font-normal leading-normal text-center">Drag and drop an image here, or click to browse files.</p>
                                     </div>
                                 )}
 
@@ -389,11 +416,11 @@ const AddRecipe = () => {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[480px]">
                             <label className="flex flex-col">
-                                <p className="text-slate-700 text-base font-medium pb-2">Cuisine Type</p>
+                                <p className="text-slate-700 dark:text-gray-300 text-base font-medium pb-2">Cuisine Type</p>
                                 <select
                                     value={recipe.cuisineType}
                                     onChange={(e) => handleInputChange('cuisineType', e.target.value)}
-                                    className="w-full rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 h-14 px-4 text-base"
+                                    className="w-full rounded-lg border border-green-300 dark:border-green-700 bg-white dark:bg-gray-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 h-14 px-4 text-base"
                                 >
                                     <option>Italian</option>
                                     <option>Mexican</option>
@@ -403,11 +430,11 @@ const AddRecipe = () => {
                             </label>
 
                             <label className="flex flex-col">
-                                <p className="text-slate-700 text-base font-medium pb-2">Meal Type</p>
+                                <p className="text-slate-700 dark:text-gray-300 text-base font-medium pb-2">Meal Type</p>
                                 <select
                                     value={recipe.mealType}
                                     onChange={(e) => handleInputChange('mealType', e.target.value)}
-                                    className="w-full rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 h-14 px-4 text-base"
+                                    className="w-full rounded-lg border border-green-300 dark:border-green-700 bg-white dark:bg-gray-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 h-14 px-4 text-base"
                                 >
                                     <option>Breakfast</option>
                                     <option>Lunch</option>
@@ -418,14 +445,14 @@ const AddRecipe = () => {
                         </div>
 
                         <div className="space-y-2">
-                            <p className="text-slate-700 text-base font-medium">Dietary Restrictions</p>
+                            <p className="text-slate-700 dark:text-gray-300 text-base font-medium">Dietary Restrictions</p>
                             <div className="flex flex-wrap gap-3">
                                 {['Vegan', 'Gluten-Free', 'Nut-Free', 'Vegetarian'].map(restriction => (
                                     <button
                                         key={restriction}
                                         type="button"
                                         onClick={() => toggleDietaryRestriction(restriction)}
-                                        className={`flex items-center gap-2 rounded-full border border-green-300 px-3 py-1.5 text-sm text-slate-700 ${recipe.dietaryRestrictions.includes(restriction) ? 'bg-green-100' : 'hover:bg-green-100'
+                                        className={`flex items-center gap-2 rounded-full border border-green-300 dark:border-green-700 px-3 py-1.5 text-sm text-slate-700 dark:text-gray-300 ${recipe.dietaryRestrictions.includes(restriction) ? 'bg-green-100 dark:bg-green-900/30' : 'hover:bg-green-100 dark:hover:bg-green-900/30'
                                             }`}
                                     >
                                         {restriction}
@@ -443,11 +470,11 @@ const AddRecipe = () => {
                             {recipe.ingredients.map((ingredient, index) => (
                                 <div key={index} className="grid grid-cols-1 md:grid-cols-[1fr_1fr_2fr_auto] gap-4 items-end">
                                     <label className="flex flex-col">
-                                        <p className="text-slate-700 text-sm font-medium pb-1">Quantity</p>
+                                        <p className="text-slate-700 dark:text-gray-300 text-sm font-medium pb-1">Quantity</p>
                                         <input
                                             value={ingredient.quantity}
                                             onChange={(e) => updateIngredient(index, 'quantity', e.target.value)}
-                                            className="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                            className="rounded-lg border border-green-300 dark:border-green-700 bg-white dark:bg-gray-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
                                             placeholder="e.g., 2"
                                             type="text"
                                         />
@@ -457,7 +484,7 @@ const AddRecipe = () => {
                                         <input
                                             value={ingredient.unit}
                                             onChange={(e) => updateIngredient(index, 'unit', e.target.value)}
-                                            className="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                            className="rounded-lg border border-green-300 dark:border-green-700 bg-white dark:bg-gray-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
                                             placeholder="e.g., cups"
                                             type="text"
                                         />
@@ -467,7 +494,7 @@ const AddRecipe = () => {
                                         <input
                                             value={ingredient.name}
                                             onChange={(e) => updateIngredient(index, 'name', e.target.value)}
-                                            className="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                            className="rounded-lg border border-green-300 dark:border-green-700 bg-white dark:bg-gray-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
                                             placeholder="e.g., All-purpose flour"
                                             type="text"
                                         />
@@ -500,11 +527,11 @@ const AddRecipe = () => {
                         <div className="space-y-4">
                             {recipe.instructions.map((instruction, index) => (
                                 <div key={index} className="flex items-start gap-4">
-                                    <span className="text-lg font-bold text-slate-500 pt-2">{index + 1}.</span>
+                                    <span className="text-lg font-bold text-slate-500 dark:text-gray-400 pt-2">{index + 1}.</span>
                                     <textarea
                                         value={instruction}
                                         onChange={(e) => updateInstruction(index, e.target.value)}
-                                        className="flex-1 min-h-24 rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                        className="flex-1 min-h-24 rounded-lg border border-green-300 dark:border-green-700 bg-white dark:bg-gray-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
                                         placeholder={`Describe step ${index + 1}...`}
                                     />
                                     <button
@@ -534,11 +561,11 @@ const AddRecipe = () => {
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <label className="flex flex-col">
-                                <p className="text-slate-700 text-sm font-medium pb-1">Calories</p>
+                                <p className="text-slate-700 dark:text-gray-300 text-sm font-medium pb-1">Calories</p>
                                 <input
                                     value={recipe.nutrition.calories}
                                     onChange={(e) => handleInputChange('calories', e.target.value, 'nutrition')}
-                                    className="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                    className="rounded-lg border border-green-300 dark:border-green-700 bg-white dark:bg-gray-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
                                     placeholder="e.g., 350"
                                     type="text"
                                 />
@@ -548,7 +575,7 @@ const AddRecipe = () => {
                                 <input
                                     value={recipe.nutrition.protein}
                                     onChange={(e) => handleInputChange('protein', e.target.value, 'nutrition')}
-                                    className="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                    className="rounded-lg border border-green-300 dark:border-green-700 bg-white dark:bg-gray-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
                                     placeholder="e.g., 20"
                                     type="text"
                                 />
@@ -558,7 +585,7 @@ const AddRecipe = () => {
                                 <input
                                     value={recipe.nutrition.carbs}
                                     onChange={(e) => handleInputChange('carbs', e.target.value, 'nutrition')}
-                                    className="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                    className="rounded-lg border border-green-300 dark:border-green-700 bg-white dark:bg-gray-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
                                     placeholder="e.g., 45"
                                     type="text"
                                 />
@@ -568,7 +595,7 @@ const AddRecipe = () => {
                                 <input
                                     value={recipe.nutrition.fat}
                                     onChange={(e) => handleInputChange('fat', e.target.value, 'nutrition')}
-                                    className="rounded-lg border border-green-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
+                                    className="rounded-lg border border-green-300 dark:border-green-700 bg-white dark:bg-gray-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 px-3 py-2"
                                     placeholder="e.g., 15"
                                     type="text"
                                 />
@@ -577,11 +604,11 @@ const AddRecipe = () => {
                     </div>
 
                     {/* action bar */}
-                    <div className="flex justify-end items-center gap-4 pt-6 border-t border-green-200 mt-4">
+                    <div className="flex justify-end items-center gap-4 pt-6 border-t border-green-200 dark:border-green-800 mt-4">
                         <button
                             type="button"
                             onClick={handleCancel}
-                            className="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-transparent text-slate-700 text-base font-bold hover:bg-slate-100"
+                            className="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-transparent text-slate-700 dark:text-gray-300 text-base font-bold hover:bg-slate-100 dark:hover:bg-gray-700"
                         >
                             <span className="truncate">Cancel</span>
                         </button>
