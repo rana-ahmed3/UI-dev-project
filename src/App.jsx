@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from './context/ThemeContext';
+import { RecipeProvider } from './context/RecipeContext';
 import Layout from './components/common/Layout';
 import Home from './pages/Home';
 import RecipeDetails from './pages/RecipeDetails';
@@ -20,21 +22,25 @@ const SignupWithLayout = () => <Layout><Signup /></Layout>;
 
 function App() {
     return (
-        <Router>
-            <Routes>
-                {/* Home and RecipeDetails don't use Layout (they have their own Navbar/Footer) */}
-                <Route path="/" element={<Home />} />
-                <Route path="/recipe/:id" element={<RecipeDetails />} />
-                
-                {/* Other pages use Layout */}
-                <Route path="/recipes" element={<RecipesWithLayout />} />
-                <Route path="/add-recipe" element={<AddRecipeWithLayout />} />
-                <Route path="/meal-planner" element={<DashboardWithLayout />} />
-                <Route path="/profile" element={<ProfileWithLayout />} />
-                <Route path="/login" element={<LoginWithLayout />} />
-                <Route path="/signup" element={<SignupWithLayout />} />
-            </Routes>
-        </Router>
+        <ThemeProvider>
+            <RecipeProvider>
+                <Router>
+                    <Routes>
+                        {/* Home and RecipeDetails don't use Layout (they have their own Navbar/Footer) */}
+                        <Route path="/" element={<Home />} />
+                        <Route path="/recipe/:id" element={<RecipeDetails />} />
+                        
+                        {/* Other pages use Layout */}
+                        <Route path="/recipes" element={<RecipesWithLayout />} />
+                        <Route path="/add-recipe" element={<AddRecipeWithLayout />} />
+                        <Route path="/meal-planner" element={<DashboardWithLayout />} />
+                        <Route path="/profile" element={<ProfileWithLayout />} />
+                        <Route path="/login" element={<LoginWithLayout />} />
+                        <Route path="/signup" element={<SignupWithLayout />} />
+                    </Routes>
+                </Router>
+            </RecipeProvider>
+        </ThemeProvider>
     );
 }
 
