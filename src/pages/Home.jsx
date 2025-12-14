@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import RecipeCard from '../components/RecipeCard.jsx';
@@ -6,7 +7,7 @@ import { recipes } from '../data/recipes.js';
 
 function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-white text-gray-800">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-950 text-gray-800 dark:text-gray-200">
       <Navbar />
 
       {/* Hero */}
@@ -31,49 +32,55 @@ function Home() {
               MealPlanner.
             </p>
             <div className="mt-8">
-              <button
-                type="button"
+              <Link
+                to="/recipes"
                 className="inline-flex items-center rounded-md bg-emerald-600 px-6 py-3 text-sm sm:text-base font-semibold text-white shadow-lg hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-400"
               >
                 Get Started
-              </button>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* Features */}
-      <section className="py-14 sm:py-16 lg:py-20 bg-gray-50">
+      <section className="py-14 sm:py-16 lg:py-20 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">How it Works</h2>
-            <p className="mt-2 text-gray-600">Three simple steps to take control of your meals.</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">How it Works</h2>
+            <p className="mt-2 text-gray-600 dark:text-gray-400">Three simple steps to take control of your meals.</p>
           </div>
           <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-              <div className="h-10 w-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+            <Link
+              to="/recipes"
+              className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm hover:shadow-md transition-shadow cursor-pointer block"
+            >
+              <div className="h-10 w-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 flex items-center justify-center font-bold">
                 1
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-gray-900">Search Recipes</h3>
-              <p className="mt-2 text-gray-600 text-sm">
+              <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">Search Recipes</h3>
+              <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                 Find delicious recipes tailored to your tastes and dietary preferences.
               </p>
-            </div>
-            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-              <div className="h-10 w-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+            </Link>
+            <Link
+              to="/meal-planner"
+              className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm hover:shadow-md transition-shadow cursor-pointer block"
+            >
+              <div className="h-10 w-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 flex items-center justify-center font-bold">
                 2
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-gray-900">Plan Your Week</h3>
-              <p className="mt-2 text-gray-600 text-sm">
+              <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">Plan Your Week</h3>
+              <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                 Organize meals into an easy, balanced plan for your week.
               </p>
-            </div>
-            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-              <div className="h-10 w-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+            </Link>
+            <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+              <div className="h-10 w-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 flex items-center justify-center font-bold">
                 3
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-gray-900">Cook &amp; Enjoy</h3>
-              <p className="mt-2 text-gray-600 text-sm">
+              <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">Cook &amp; Enjoy</h3>
+              <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                 Follow step-by-step instructions and enjoy stress-free cooking.
               </p>
             </div>
@@ -86,20 +93,20 @@ function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Featured Recipes</h2>
-              <p className="mt-2 text-gray-600">Curated ideas to inspire your next meal.</p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Featured Recipes</h2>
+              <p className="mt-2 text-gray-600 dark:text-gray-400">Curated ideas to inspire your next meal.</p>
             </div>
-            <button
-              type="button"
-              className="hidden sm:inline-flex text-sm font-medium text-emerald-700 hover:text-emerald-800"
+            <Link
+              to="/recipes"
+              className="hidden sm:inline-flex text-sm font-medium text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300"
             >
               Browse all →
-            </button>
+            </Link>
           </div>
 
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {recipes.map((recipe) => (
-              <RecipeCard key={recipe.id} recipe={recipe} />
+            {recipes.map((recipe, index) => (
+              <RecipeCard key={recipe.id} recipe={recipe} index={index} />
             ))}
           </div>
         </div>
