@@ -75,6 +75,17 @@ export const RecipeProvider = ({ children }) => {
     return mealPlan.includes(recipeId);
   };
 
+
+
+  // delete recipe
+  const deleteCustomRecipe = (id) => {
+    setCustomRecipes(prev =>
+      prev.filter(recipe => recipe.id !== id)
+    );
+  };
+
+
+
   // Add a new custom recipe
   const addCustomRecipe = (recipe) => {
     setCustomRecipes((prevRecipes) => {
@@ -95,6 +106,7 @@ export const RecipeProvider = ({ children }) => {
         favorites,
         mealPlan,
         customRecipes,
+        deleteCustomRecipe,
         toggleFavorite,
         addToMealPlan,
         addCustomRecipe,

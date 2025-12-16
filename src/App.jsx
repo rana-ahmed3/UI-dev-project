@@ -15,6 +15,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/common/ProtectedRoute';
+import NotFound from './pages/NotFound';
 
 // Wrapper components for pages that need Layout
 const RecipesWithLayout = () => <Layout><Recipes /></Layout>;
@@ -23,7 +24,7 @@ const DashboardWithLayout = () => <Layout><Dashboard /></Layout>;
 const ProfileWithLayout = () => <Layout><Profile /></Layout>;
 const LoginWithLayout = () => <Layout><Login /></Layout>;
 const SignupWithLayout = () => <Layout><Signup /></Layout>;
-
+const NotFoundWithLayout = () => <Layout><NotFound /></Layout>;
 function App() {
     return (
         <ThemeProvider>
@@ -37,7 +38,7 @@ function App() {
                                 <Route path="/recipe/:id" element={<RecipeDetails />} />
                                 <Route path="/login" element={<LoginWithLayout />} />
                                 <Route path="/signup" element={<SignupWithLayout />} />
-                                
+
                                 {/* Protected routes for all authenticated users */}
                                 <Route path="/recipes" element={
                                     <ProtectedRoute>
@@ -50,22 +51,24 @@ function App() {
                                     </ProtectedRoute>
                                 } />
                                 <Route path="/meal-planner" element={
-                                    <ProtectedRoute>
+                                    <ProtectedRoute adminOnly={true}>
                                         <DashboardWithLayout />
                                     </ProtectedRoute>
                                 } />
                                 <Route path="/add-recipe" element={
-                                    <ProtectedRoute>
+                                    <ProtectedRoute adminOnly={true}>
                                         <AddRecipeWithLayout />
                                     </ProtectedRoute>
                                 } />
-                                
+
                                 {/* Admin-only route - AdminDashboard has its own navbar */}
                                 <Route path="/admin" element={
                                     <ProtectedRoute adminOnly={true}>
                                         <AdminDashboard />
                                     </ProtectedRoute>
                                 } />
+                                {/* 404 page route */}
+                                <Route path="*" element={<NotFoundWithLayout />} />
                             </Routes>
                         </Router>
                     </AuthProvider>

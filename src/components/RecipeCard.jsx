@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
 import { useRecipe } from '../context/RecipeContext';
 
+
 function RecipeCard({ recipe, index = 0 }) {
   const { toggleFavorite, isFavorite } = useRecipe();
   const favorite = isFavorite(recipe.id);
@@ -13,6 +14,9 @@ function RecipeCard({ recipe, index = 0 }) {
     e.stopPropagation();
     toggleFavorite(recipe.id);
   };
+
+
+
 
   return (
     <motion.article
@@ -38,11 +42,10 @@ function RecipeCard({ recipe, index = 0 }) {
               aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
             >
               <Heart
-                className={`h-5 w-5 transition-colors ${
-                  favorite
-                    ? 'fill-red-500 text-red-500'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-red-500'
-                }`}
+                className={`h-5 w-5 transition-colors ${favorite
+                  ? 'fill-red-500 text-red-500'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-red-500'
+                  }`}
               />
             </button>
           </div>
@@ -64,6 +67,7 @@ function RecipeCard({ recipe, index = 0 }) {
         </div>
       </Link>
     </motion.article>
+
   );
 }
 

@@ -1,25 +1,75 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useRecipe } from '../context/RecipeContext';
 import { recipes as defaultRecipes } from '../data/recipes';
-
+import Toast from '../components/common/Toast';
 //filter, search, sort, first page, favourite, num of recipies, and toggle button
 
 const Recipes = () => {
-    const [filters, setFilters] = useState({        
+    const [filters, setFilters] = useState({
         cuisine: '',
         mealType: '',
         dietary: []
     });
-
-    const [searchTerm, setSearchTerm] = useState('');      
-    const [sortBy, setSortBy] = useState('newest');         
-    const [currentPage, setCurrentPage] = useState(1);      
+    
+    const [searchTerm, setSearchTerm] = useState('');
+    const [sortBy, setSortBy] = useState('newest');
+    const [currentPage, setCurrentPage] = useState(1);
     const [showFavorites, setShowFavorites] = useState(false);
-    const recipesPerPage = 4;       
+    const recipesPerPage = 4;
+
+    // to delete recipe
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState('');
+    const [toastType, setToastType] = useState('success');
+    const [recipeToDelete, setRecipeToDelete] = useState(null);
+
+
+    // delete recipe
+    const handleDeleteRecipe = (recipeId, recipeName) => {
+        setRecipeToDelete({ id: recipeId, name: recipeName });
+        setToastMessage(`Are you sure you want to delete "${recipeName}"?`);
+        setToastType('warning');
+        setShowToast(true);
+    };
+
+
+    // confirm delete recipe
+    const confirmDelete = () => {
+        if (recipeToDelete) {
+            deleteCustomRecipe(recipeToDelete.id);
+            setToastMessage(`"${recipeToDelete.name}" deleted successfully!`);
+            setToastType('success');
+            setRecipeToDelete(null);
+            setShowToast(true);
+        }
+    };
+
+    // cancel delete recipe
+    const cancelDelete = () => {
+        setRecipeToDelete(null);
+        setToastMessage('Deletion cancelled');
+        setToastType('info');
+        setShowToast(true);
+    };
+
+
+
+
+     // toast hide after 3s
+    useEffect(() => {
+        if (showToast && (toastType === 'success' || toastType === 'info')) {
+            const timer = setTimeout(() => {
+                setShowToast(false);
+            }, 3000); 
+            
+            return () => clearTimeout(timer);
+        }
+    }, [showToast, toastType]);
+
 
     // Use RecipeContext for favorites and custom recipes
-    const { favorites, toggleFavorite, isFavorite, customRecipes } = useRecipe();
+    const { favorites, toggleFavorite, isFavorite, customRecipes, deleteCustomRecipe } = useRecipe();
 
     // Hardcoded recipes (from teammates)
     const hardcodedRecipes = [
@@ -365,6 +415,33 @@ const Recipes = () => {
 
     return (
         <div className="flex flex-col md:flex-row gap-8 lg:gap-12 px-4 sm:px-6 lg:px-8 py-8">
+            {/*Toast for deleting message */}
+            {showToast && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-sm mx-4">
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                            {toastType === 'warning' ? 'Confirm Delete' : 'Success'}
+                        </h3>
+                        <p className="text-slate-600 dark:text-gray-400 mb-4">{toastMessage}</p>
+                        {toastType === 'warning' && (
+                            <div className="flex justify-end gap-3">
+                                <button
+                                    onClick={cancelDelete}
+                                    className="px-4 py-2 text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-gray-700 rounded-lg"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={confirmDelete}
+                                    className="px-4 py-2 bg-red-600 text-white hover:bg-red-700 rounded-lg"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
             {/* sidebar Filters */}
             <aside className="w-full md:w-64 lg:w-72 flex-shrink-0">
                 <div className="sticky top-28 space-y-6">
@@ -377,7 +454,7 @@ const Recipes = () => {
                                 setShowFavorites(!showFavorites);
                                 setCurrentPage(1);
                             }}
-                                    className={`w-full px-4 py-2 text-sm rounded-lg flex items-center gap-2 ${showFavorites
+                            className={`w-full px-4 py-2 text-sm rounded-lg flex items-center gap-2 ${showFavorites
                                 ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 font-medium'
                                 : 'bg-slate-200 dark:bg-gray-700 hover:bg-red-100 dark:hover:bg-red-900/30 text-slate-700 dark:text-gray-300 hover:text-red-700 dark:hover:text-red-400'
                                 }`}
@@ -518,8 +595,8 @@ const Recipes = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {currentRecipes.map(recipe => (
-                            <Link 
-                                key={recipe.id} 
+                            <Link
+                                key={recipe.id}
                                 to={`/recipe/${recipe.id}`}
                                 className="flex flex-col gap-3 group cursor-pointer block"
                             >
@@ -544,6 +621,24 @@ const Recipes = () => {
                                             favorite
                                         </span>
                                     </button>
+                                    <button
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            handleDeleteRecipe(recipe.id, recipe.name);
+                                        }}
+                                        className="absolute top-3 left-3 h-8 w-8 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm flex items-center justify-center transition-colors z-10 hover:bg-red-50 dark:hover:bg-red-900/30"
+                                        title="Delete recipe"
+                                    >
+                                        <span className="material-symbols-outlined text-xl text-gray-600 dark:text-gray-400 hover:text-red-500">
+                                            delete
+                                        </span>
+                                    </button>
+                                    
+
+
+
+
                                 </div>
                                 <div>
                                     <p className="text-slate-900 dark:text-white text-base font-bold leading-normal group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">{recipe.name}</p>
@@ -583,8 +678,8 @@ const Recipes = () => {
                                                 key={page}
                                                 onClick={() => handlePageChange(page)}
                                                 className={`flex items-center justify-center h-9 w-9 rounded-lg text-sm ${currentPage === page
-                                                        ? 'bg-green-600 text-white font-bold'
-                                                        : 'bg-white dark:bg-gray-700 text-slate-500 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-gray-600'
+                                                    ? 'bg-green-600 text-white font-bold'
+                                                    : 'bg-white dark:bg-gray-700 text-slate-500 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-gray-600'
                                                     }`}
                                             >
                                                 {page}
