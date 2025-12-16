@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { RecipeProvider } from './context/RecipeContext';
+import { WeeklyMealProvider } from './context/WeeklyMealContext';
+import { AuthProvider } from './context/AuthContext';
 import Layout from './components/common/Layout';
 import Home from './pages/Home';
 import RecipeDetails from './pages/RecipeDetails';
@@ -24,6 +26,8 @@ function App() {
     return (
         <ThemeProvider>
             <RecipeProvider>
+                <WeeklyMealProvider>
+                    <AuthProvider>
                 <Router>
                     <Routes>
                         {/* Home and RecipeDetails don't use Layout (they have their own Navbar/Footer) */}
@@ -39,6 +43,8 @@ function App() {
                         <Route path="/signup" element={<SignupWithLayout />} />
                     </Routes>
                 </Router>
+                </AuthProvider>
+                </WeeklyMealProvider>
             </RecipeProvider>
         </ThemeProvider>
     );

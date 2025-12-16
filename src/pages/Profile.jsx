@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Add this import
+import { useAuth } from '../context/AuthContext';
+import { LogOut } from 'lucide-react'; // Add this import
 
 const Profile = () => {
-  const [userData, setUserData] = useState({
+  const { user, updateProfile, logout } = useAuth();
+  const navigate = useNavigate(); // Initialize navigate
+  
+  // Use user data from auth context
+  const [userData, setUserData] = useState(user || {
     firstName: 'Rana',
     lastName: 'Ahmed',
     email: 's-rana.maaty@zewailcity.edu.eg',
@@ -14,6 +21,15 @@ const Profile = () => {
   const [errors, setErrors] = useState({});
   const [isModified, setIsModified] = useState(false);
   const [saveStatus, setSaveStatus] = useState('');
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false); // Add state for confirmation dialog
+
+  // Update formData when user data changes
+  useEffect(() => {
+    if (user) {
+      setUserData(user);
+      setFormData({ ...user });
+    }
+  }, [user]);
 
   // check if form has been modified
   useEffect(() => {
@@ -86,11 +102,14 @@ const Profile = () => {
     try {
       setSaveStatus('Saving...');
       
-      // wait
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Update profile using auth context
+      updateProfile({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        bio: formData.bio
+      });
       
-      // update user data with form data
-      setUserData({ ...formData });
       setIsModified(false);
       setSaveStatus('Changes saved successfully!');
       
@@ -111,8 +130,56 @@ const Profile = () => {
     setSaveStatus('');
   };
 
+  const handleLogoutClick = () => {
+    setShowLogoutConfirm(true);
+  };
+
+  const confirmLogout = () => {
+    logout();
+    navigate('/');
+    setShowLogoutConfirm(false);
+  };
+
+  const cancelLogout = () => {
+    setShowLogoutConfirm(false);
+  };
+
   return (
     <div className="max-w-4xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      {/* Logout Confirmation Dialog */}
+      {showLogoutConfirm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full p-6">
+            <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-full bg-red-100 dark:bg-red-900">
+              <LogOut className="h-6 w-6 text-red-600 dark:text-red-400" />
+            </div>
+            
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white text-center mb-2">
+              Confirm Logout
+            </h3>
+            
+            <p className="text-gray-600 dark:text-gray-400 text-center mb-6">
+              Are you sure you want to logout? You will need to sign in again to access your account.
+            </p>
+            
+            <div className="flex justify-center space-x-4">
+              <button
+                onClick={cancelLogout}
+                className="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-300"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmLogout}
+                className="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Title */}
       <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Profile Settings</h1>
@@ -139,6 +206,15 @@ const Profile = () => {
                 <p className="text-green-600 dark:text-green-400 text-sm mt-2">
                   member since {userData.joinDate}
                 </p>
+                
+                {/* Logout Button */}
+                <button
+                  onClick={handleLogoutClick}
+                  className="mt-6 w-full py-2 px-4 inline-flex items-center justify-center gap-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-300"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Logout
+                </button>
               </div>
             </div>
           </div>
@@ -233,7 +309,7 @@ const Profile = () => {
                 </div>
               </div>
 
-              {/* status mssage and Buttons */}
+              {/* status message and Buttons */}
               <div className="flex flex-col space-y-4">
                 {/* status message */}
                 {saveStatus && (

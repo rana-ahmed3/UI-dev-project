@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; // Add this import
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ const Signup = () => {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { signup } = useAuth(); // Get signup function from context
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -88,11 +90,19 @@ const Signup = () => {
     setIsLoading(true);
 
     try {
-      // wait time to run isloading
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Use the auth context signup function
+      const result = await signup({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email
+      });
       
-      // Redirect to home page after successful signup
-      navigate('/home');
+      if (result.success) {
+        // Redirect to home page after successful signup
+        navigate('/');
+      } else {
+        setErrors({ submit: result.message || 'Signup failed. Please try again.' });
+      }
       
     } catch (error) {
       setErrors({ submit: 'Signup failed. Please try again.' });
@@ -111,7 +121,7 @@ const Signup = () => {
         className="background-container fixed inset-0 bg-cover bg-center bg-no-repeat"
         style={backgroundStyle}
       >
-        <div className="dark-overlay absolute inset-0 bg-black bg-opacity-60"></div>
+         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
       </div>
       
       {/* title */}

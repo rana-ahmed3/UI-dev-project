@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { useAuth } from '../context/AuthContext'; // Keep this import
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
+  const { isAuthenticated, user } = useAuth(); // Keep auth check for showing user name
 
   const isActive = (path) => location.pathname === path;
 
@@ -49,12 +51,21 @@ function Navbar() {
                 <Sun className="h-5 w-5" />
               )}
             </button>
-            <Link
-              to="/login"
-              className="inline-flex items-center rounded-md bg-emerald-600 dark:bg-emerald-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-emerald-700 dark:hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
-            >
-              Login
-            </Link>
+            
+            {isAuthenticated ? (
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-gray-700 dark:text-gray-300">
+                  Hi, {user?.firstName || 'User'}
+                </span>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="inline-flex items-center rounded-md bg-emerald-600 dark:bg-emerald-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-emerald-700 dark:hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+              >
+                Login
+              </Link>
+            )}
           </div>
           
           {/* Mobile menu button */}
@@ -123,13 +134,20 @@ function Navbar() {
               >
                 Add Recipe
               </Link>
-              <Link
-                to="/login"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-2 inline-flex items-center justify-center rounded-md bg-emerald-600 dark:bg-emerald-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-emerald-700 dark:hover:bg-emerald-600"
-              >
-                Login
-              </Link>
+              
+              {isAuthenticated ? (
+                <div className="px-3 py-2 text-sm text-gray-700 dark:text-gray-300">
+                  Hi, {user?.firstName || 'User'}
+                </div>
+              ) : (
+                <Link
+                  to="/login"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="mt-2 inline-flex items-center justify-center rounded-md bg-emerald-600 dark:bg-emerald-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-emerald-700 dark:hover:bg-emerald-600"
+                >
+                  Login
+                </Link>
+              )}
             </nav>
           </div>
         )}
@@ -139,5 +157,3 @@ function Navbar() {
 }
 
 export default Navbar;
-
-
