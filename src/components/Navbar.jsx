@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-import { useAuth } from '../context/AuthContext'; // Keep this import
+import { useAuth } from '../context/AuthContext';
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
-  const { isAuthenticated, user } = useAuth(); // Keep auth check for showing user name
+  const { isAuthenticated, user } = useAuth();
 
   const isActive = (path) => location.pathname === path;
 

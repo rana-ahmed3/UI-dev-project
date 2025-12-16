@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Add this import
+import { useAuth } from '../context/AuthContext'; 
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +15,7 @@ const Signup = () => {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { signup } = useAuth(); // Get signup function from context
+  const { signup } = useAuth();
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -116,23 +116,24 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      {/* Fixed background with overlay */}
       <div 
-        className="background-container fixed inset-0 bg-cover bg-center bg-no-repeat"
+        className="fixed inset-0 bg-cover bg-center bg-no-repeat z-0"
         style={backgroundStyle}
       >
-         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
       </div>
       
-      {/* title */}
-      <div className="content relative flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+      {/* Content */}
+      <div className="relative z-10 flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-white">Create your account</h2>
             <p className="mt-2 text-sm text-white">Join RecipeFinder and start planning your meals</p>
           </div>
           
-          {/* sign up */}
+          {/* Sign up form */}
           <form onSubmit={handleSubmit} className="mt-8 space-y-6 bg-white dark:bg-gray-800 bg-opacity-90 dark:bg-opacity-95 p-8 rounded-xl shadow-2xl">
             {errors.submit && (
               <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg text-sm">

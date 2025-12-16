@@ -66,8 +66,14 @@ const Login = () => {
       const result = await login(formData.email, formData.password);
       
       if (result.success) {
-        // Redirect to home page
-        navigate('/');
+        // Check if user is admin
+        if (result.user?.role === 'admin') {
+          // Redirect admin directly to admin dashboard
+          navigate('/admin');
+        } else {
+          // Redirect regular users to home page
+          navigate('/');
+        }
       } else {
         setErrors({ submit: result.message || 'Login failed. Please check your credentials and try again.' });
       }
@@ -100,7 +106,7 @@ const Login = () => {
             <p className="mt-2 text-sm text-white">Sign in to your RecipeFinder account</p>
           </div>
 
-          {/* login form */}
+          {/* Login form */}
           <form onSubmit={handleSubmit} className="mt-8 space-y-6 bg-white dark:bg-gray-800 bg-opacity-90 dark:bg-opacity-95 p-8 rounded-xl">
             {errors.submit && (
               <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg text-sm">
@@ -189,6 +195,13 @@ const Login = () => {
                   Sign up here
                 </Link>
               </p>
+            </div>
+
+            {/* admin  pass */}
+            <div className="mt-6 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg">
+              <div className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                <p><span className="font-medium">Admin:</span> admin@recipefinder.com / admin123</p>
+              </div>
             </div>
           </form>
         </div>

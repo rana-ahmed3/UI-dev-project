@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Add this import
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LogOut } from 'lucide-react'; // Add this import
+import { LogOut } from 'lucide-react';
 
 const Profile = () => {
   const { user, updateProfile, logout } = useAuth();
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
   
   // Use user data from auth context
   const [userData, setUserData] = useState(user || {
@@ -14,14 +14,15 @@ const Profile = () => {
     email: 's-rana.maaty@zewailcity.edu.eg',
     bio: 'Love cooking healthy meals and trying new recipes!',
     avatar: 'https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg',
-    joinDate: 'Jan 2024'
+    joinDate: 'Jan 2024',
+    role: 'user'
   });
 
   const [formData, setFormData] = useState({ ...userData });
   const [errors, setErrors] = useState({});
   const [isModified, setIsModified] = useState(false);
   const [saveStatus, setSaveStatus] = useState('');
-  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false); // Add state for confirmation dialog
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   // Update formData when user data changes
   useEffect(() => {
@@ -188,7 +189,7 @@ const Profile = () => {
 
         {/* Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* at left side */}
+          {/* Left side */}
           <div className="lg:col-span-1">
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
               <div className="text-center">
@@ -219,7 +220,7 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* right side*/}
+          {/* Right side*/}
           <div className="lg:col-span-2 space-y-6">
             <form onSubmit={handleSubmit}>
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
@@ -227,7 +228,7 @@ const Profile = () => {
                   <h2 className="text-xl font-bold text-gray-900 dark:text-white">Personal Information</h2>
                 </div>
                 <div className="p-6 space-y-4">
-                  {/* data name */}
+                  {/* Name fields */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -265,7 +266,7 @@ const Profile = () => {
                     </div>
                   </div>
                   
-                  {/* email */}
+                  {/* Email */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                       Email
@@ -284,7 +285,7 @@ const Profile = () => {
                     )}
                   </div>
                   
-                  {/* bio*/}
+                  {/* Bio */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                       Bio
@@ -309,9 +310,9 @@ const Profile = () => {
                 </div>
               </div>
 
-              {/* status message and Buttons */}
+              {/* Status message and Buttons */}
               <div className="flex flex-col space-y-4">
-                {/* status message */}
+                {/* Status message */}
                 {saveStatus && (
                   <div className={`text-sm font-medium ${
                     saveStatus.includes('Error') || saveStatus.includes('Please fix') 
@@ -324,7 +325,7 @@ const Profile = () => {
                   </div>
                 )}
 
-                {/* buttons */}
+                {/* Buttons */}
                 <div className="flex justify-end space-x-4">
                   {isModified && (
                     <button
@@ -338,7 +339,7 @@ const Profile = () => {
                   <button 
                     type="submit"
                     disabled={!isModified || saveStatus === 'Saving...'}
-                    className={`font-medium py-2 py px-6 rounded-lg transition duration-300 mt-3 ${
+                    className={`font-medium py-2 px-6 rounded-lg transition duration-300 mt-3 ${
                       isModified && saveStatus !== 'Saving...'
                         ? 'bg-green-600 hover:bg-green-700 text-white'
                         : 'bg-gray-400 text-gray-200 cursor-not-allowed'

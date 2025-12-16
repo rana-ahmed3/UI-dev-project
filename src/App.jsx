@@ -13,6 +13,8 @@ import Profile from './pages/Profile';
 import Dashboard from './pages/MealPlanner';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import AdminDashboard from './pages/AdminDashboard';
+import ProtectedRoute from './components/common/ProtectedRoute';
 
 // Wrapper components for pages that need Layout
 const RecipesWithLayout = () => <Layout><Recipes /></Layout>;
@@ -28,22 +30,45 @@ function App() {
             <RecipeProvider>
                 <WeeklyMealProvider>
                     <AuthProvider>
-                <Router>
-                    <Routes>
-                        {/* Home and RecipeDetails don't use Layout (they have their own Navbar/Footer) */}
-                        <Route path="/" element={<Home />} />
-                        <Route path="/recipe/:id" element={<RecipeDetails />} />
-                        
-                        {/* Other pages use Layout */}
-                        <Route path="/recipes" element={<RecipesWithLayout />} />
-                        <Route path="/add-recipe" element={<AddRecipeWithLayout />} />
-                        <Route path="/meal-planner" element={<DashboardWithLayout />} />
-                        <Route path="/profile" element={<ProfileWithLayout />} />
-                        <Route path="/login" element={<LoginWithLayout />} />
-                        <Route path="/signup" element={<SignupWithLayout />} />
-                    </Routes>
-                </Router>
-                </AuthProvider>
+                        <Router>
+                            <Routes>
+                                {/* Public routes */}
+                                <Route path="/" element={<Home />} />
+                                <Route path="/recipe/:id" element={<RecipeDetails />} />
+                                <Route path="/login" element={<LoginWithLayout />} />
+                                <Route path="/signup" element={<SignupWithLayout />} />
+                                
+                                {/* Protected routes for all authenticated users */}
+                                <Route path="/recipes" element={
+                                    <ProtectedRoute>
+                                        <RecipesWithLayout />
+                                    </ProtectedRoute>
+                                } />
+                                <Route path="/profile" element={
+                                    <ProtectedRoute>
+                                        <ProfileWithLayout />
+                                    </ProtectedRoute>
+                                } />
+                                <Route path="/meal-planner" element={
+                                    <ProtectedRoute>
+                                        <DashboardWithLayout />
+                                    </ProtectedRoute>
+                                } />
+                                <Route path="/add-recipe" element={
+                                    <ProtectedRoute>
+                                        <AddRecipeWithLayout />
+                                    </ProtectedRoute>
+                                } />
+                                
+                                {/* Admin-only route - AdminDashboard has its own navbar */}
+                                <Route path="/admin" element={
+                                    <ProtectedRoute adminOnly={true}>
+                                        <AdminDashboard />
+                                    </ProtectedRoute>
+                                } />
+                            </Routes>
+                        </Router>
+                    </AuthProvider>
                 </WeeklyMealProvider>
             </RecipeProvider>
         </ThemeProvider>
