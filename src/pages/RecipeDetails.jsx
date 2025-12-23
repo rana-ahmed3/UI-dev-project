@@ -8,7 +8,7 @@ function RecipeDetails() {
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { toggleFavorite, addToMealPlan, isFavorite, isInMealPlan } = useRecipe();
+  const { toggleFavorite, addToMealPlan, isFavorite, isInMealPlan, customRecipes } = useRecipe();
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -17,15 +17,44 @@ function RecipeDetails() {
       const minLoadingTime = 500; // Minimum 500ms to show loading
       
       try {
+        console.log('🔍 Looking for recipe with ID:', id);
+        console.log('📋 Custom recipes in context:', customRecipes);
+
+        // 1. Check if it's a custom recipe FIRST
+        const customRecipe = customRecipes.find(r => r.id === id);
+        
+        if (customRecipe) {
+          console.log('✅ Found custom recipe:', customRecipe);
+          setRecipe(customRecipe);
+          setLoading(false);
+          return;
+        }
+
+        console.log('🌐 Fetching from API...');
+        
+        // 2. If not custom, fetch from API
         const response = await fetch(`http://localhost:3001/recipes/${id}`);
         
         if (!response.ok) {
+          // Try with string ID if numeric
+          if (!isNaN(id)) {
+            console.log('🔄 Trying with string ID...');
+            const stringResponse = await fetch(`http://localhost:3001/recipes/${String(id)}`);
+            if (stringResponse.ok) {
+              const data = await stringResponse.json();
+              setRecipe(data);
+              setLoading(false);
+              return;
+            }
+          }
           throw new Error('Recipe not found');
         }
         
         const data = await response.json();
+        console.log('✅ API recipe found:', data);
         setRecipe(data);
       } catch (err) {
+        console.error('❌ Error fetching recipe:', err);
         setError(err.message);
       } finally {
         // Ensure minimum loading time
@@ -38,7 +67,7 @@ function RecipeDetails() {
     };
 
     fetchRecipe();
-  }, [id]);
+  }, [id, customRecipes]);
 
   if (loading) {
     return <Loading message="Loading recipe..." fullScreen={true} />;
@@ -50,9 +79,10 @@ function RecipeDetails() {
         <main className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Recipe not found</h1>
+            <p className="mt-2 text-gray-600 dark:text-gray-400">ID: {id}</p>
             <p className="mt-2 text-gray-600 dark:text-gray-400">{error || "We couldn't find the recipe you were looking for."}</p>
-            <Link to="/" className="mt-4 inline-flex text-sm font-medium text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300">
-              ← Back to Home
+            <Link to="/recipes" className="mt-4 inline-flex text-sm font-medium text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300">
+              ← Back to Recipes
             </Link>
           </div>
         </main>
@@ -81,10 +111,17 @@ function RecipeDetails() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             {/* Column 1: Title, Image, Meta */}
             <section className="md:col-span-2">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">{recipe.title || recipe.name}</h1>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">
+                {recipe.title || recipe.name}
+                {recipe.id && recipe.id.includes('custom') && (
+                  <span className="ml-3 text-sm bg-emerald-100 text-emerald-800 px-2 py-1 rounded">Custom Recipe</span>
+                )}
+              </h1>
+              
               {recipe.shortDescription && (
                 <p className="mt-2 text-gray-600 dark:text-gray-400">{recipe.shortDescription}</p>
               )}
+              
               {recipe.image && (
                 <div className="mt-6 overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
                   <img

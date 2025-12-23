@@ -45,7 +45,11 @@ const AddRecipe = () => {
 
         // validation
         if (!recipe.name.trim()) {
+<<<<<<< HEAD
             showToast('Please enter a recipe name', 'error');
+=======
+            showToast('Please enter a recipe name', 'error'); 
+>>>>>>> e71e7b2 (Fix delete recipe logic and improve handling in AddRecipe and RecipeDetails)
             return;
         }
 
