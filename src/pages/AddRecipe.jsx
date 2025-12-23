@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Toast from '../components/common/Toast';
+import Loading from '../components/common/Loading';
 import { useRecipe } from '../context/RecipeContext';
 import { useNavigate } from 'react-router-dom'; 
 import { useAuth } from '../context/AuthContext'; 
@@ -8,6 +9,7 @@ const AddRecipe = () => {
      const { isAdmin } = useAuth(); 
     const navigate = useNavigate();
     const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
     const [recipe, setRecipe] = useState({
         name: '',
         description: '',
@@ -38,12 +40,12 @@ const AddRecipe = () => {
     };
 
     // handleSaveRecipe
-    const handleSaveRecipe = (e) => {
+    const handleSaveRecipe = async (e) => {
         e.preventDefault();
 
         // validation
         if (!recipe.name.trim()) {
-            showToast('Please enter a recipe name', 'error'); // ← غيري دي
+            showToast('Please enter a recipe name', 'error');
             return;
         }
 
@@ -57,60 +59,72 @@ const AddRecipe = () => {
             return;
         }
 
-        // Create recipe object with proper format
-        const recipeId = `custom-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-        const recipeToSave = {
-            id: recipeId,
-            name: recipe.name,
-            title: recipe.name, // For compatibility
-            description: recipe.description,
-            shortDescription: recipe.description,
-            cardDescription: recipe.description,
-            cuisine: recipe.cuisineType,
-            cuisineType: recipe.cuisineType,
-            mealType: recipe.mealType,
-            dietary: recipe.dietaryRestrictions,
-            dietaryRestrictions: recipe.dietaryRestrictions,
-            time: recipe.nutrition.calories ? `${recipe.nutrition.calories} min` : 'N/A',
-            difficulty: 'Medium', // Default difficulty
-            image: imagePreview || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop',
-            ingredients: recipe.ingredients
-                .filter(ing => ing.name.trim())
-                .map(ing => `${ing.quantity} ${ing.unit} ${ing.name}`.trim()),
-            instructions: recipe.instructions.filter(inst => inst.trim()),
-            nutrition: recipe.nutrition,
-        };
+        setIsSaving(true);
 
-        // Save to Context (which saves to localStorage)
-        addCustomRecipe(recipeToSave);
-        console.log('Recipe saved:', recipeToSave);
+        try {
+            // Simulate API call delay
+            await new Promise(resolve => setTimeout(resolve, 1000));
 
-        // reset form
-        setRecipe({
-            name: '',
-            description: '',
-            cuisineType: 'Italian',
-            mealType: 'Breakfast',
-            dietaryRestrictions: [],
-            ingredients: [{ quantity: '', unit: '', name: '' }],
-            instructions: [''],
-            nutrition: {
-                calories: '',
-                protein: '',
-                carbs: '',
-                fat: ''
-            }
-        });
+            // Create recipe object with proper format
+            const recipeId = `custom-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+            const recipeToSave = {
+                id: recipeId,
+                name: recipe.name,
+                title: recipe.name, // For compatibility
+                description: recipe.description,
+                shortDescription: recipe.description,
+                cardDescription: recipe.description,
+                cuisine: recipe.cuisineType,
+                cuisineType: recipe.cuisineType,
+                mealType: recipe.mealType,
+                dietary: recipe.dietaryRestrictions,
+                dietaryRestrictions: recipe.dietaryRestrictions,
+                time: recipe.nutrition.calories ? `${recipe.nutrition.calories} min` : 'N/A',
+                difficulty: 'Medium', // Default difficulty
+                image: imagePreview || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop',
+                ingredients: recipe.ingredients
+                    .filter(ing => ing.name.trim())
+                    .map(ing => `${ing.quantity} ${ing.unit} ${ing.name}`.trim()),
+                instructions: recipe.instructions.filter(inst => inst.trim()),
+                nutrition: recipe.nutrition,
+            };
 
-        setSelectedImage(null);
-        setImagePreview(null);
-        showToast('Recipe saved successfully!', 'success'); 
-        // Wait 2 seconds then redirect based on user role
-        setTimeout(() => {
-            if (isAdmin()) {
-                navigate('/admin'); // Admin goes to admin dashboard
-            }
-        }, 2000);
+            // Save to Context (which saves to localStorage)
+            addCustomRecipe(recipeToSave);
+            console.log('Recipe saved:', recipeToSave);
+
+            // reset form
+            setRecipe({
+                name: '',
+                description: '',
+                cuisineType: 'Italian',
+                mealType: 'Breakfast',
+                dietaryRestrictions: [],
+                ingredients: [{ quantity: '', unit: '', name: '' }],
+                instructions: [''],
+                nutrition: {
+                    calories: '',
+                    protein: '',
+                    carbs: '',
+                    fat: ''
+                }
+            });
+
+            setSelectedImage(null);
+            setImagePreview(null);
+            showToast('Recipe saved successfully!', 'success'); 
+            
+            // Wait 2 seconds then redirect based on user role
+            setTimeout(() => {
+                if (isAdmin()) {
+                    navigate('/admin'); // Admin goes to admin dashboard
+                }
+            }, 2000);
+        } catch (error) {
+            showToast('Error saving recipe. Please try again.', 'error');
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     
@@ -625,9 +639,21 @@ const AddRecipe = () => {
                         <button
                             type="submit"
                             onClick={handleSaveRecipe}
-                            className="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-green-600 text-white text-base font-bold hover:bg-green-700"
+                            disabled={isSaving}
+                            className={`flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 text-base font-bold ${
+                                isSaving 
+                                    ? 'bg-green-400 text-white cursor-not-allowed' 
+                                    : 'bg-green-600 text-white hover:bg-green-700'
+                            }`}
                         >
-                            <span className="truncate">Save Recipe</span>
+                            {isSaving ? (
+                                <span className="flex items-center gap-2">
+                                    <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>
+                                    <span className="truncate">Saving...</span>
+                                </span>
+                            ) : (
+                                <span className="truncate">Save Recipe</span>
+                            )}
                         </button>
                     </div>
                 </form>

@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useRecipe } from '../context/RecipeContext';
+import Loading from '../components/common/Loading.jsx';
 
 const Recipes = () => {
   const [filters, setFilters] = useState({
@@ -20,6 +21,7 @@ const Recipes = () => {
   const [toastType, setToastType] = useState('success');
   const [recipeToDelete, setRecipeToDelete] = useState(null);
   const [removedIds, setRemovedIds] = useState([]);
+  const [deletingRecipeId, setDeletingRecipeId] = useState(null); // Track which recipe is being deleted
 
   // API states
   const [apiRecipes, setApiRecipes] = useState([]);
@@ -40,6 +42,9 @@ const Recipes = () => {
     const fetchRecipes = async () => {
       setIsLoading(true);
       setError(null);
+      const startTime = Date.now();
+      const minLoadingTime = 500; // Minimum 500ms to show loading
+      
       try {
         const response = await fetch('http://localhost:3001/recipes');
         if (!response.ok) {
@@ -52,7 +57,12 @@ const Recipes = () => {
         setError('Failed to load recipes. Please try again later.');
         setApiRecipes([]); // Set empty array on error
       } finally {
-        setIsLoading(false);
+        // Ensure minimum loading time
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, minLoadingTime - elapsed);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, remaining);
       }
     };
 
@@ -102,60 +112,73 @@ const Recipes = () => {
   const confirmDelete = async () => {
     if (!recipeToDelete) return;
     
-    // Optimistically remove from UI
-    setRemovedIds(prev => [...prev, recipeToDelete.id]);
+    setDeletingRecipeId(recipeToDelete.id); // Set loading state
+    // Keep modal open to show loading state
     
     // Check if this is a custom recipe
     const isCustom = customRecipes.some(r => r.id === recipeToDelete.id);
     
     try {
-      if (isCustom) {
-        // Delete custom recipe from context
-        deleteCustomRecipe(recipeToDelete.id);
-        
-        // Also try to delete from API if it exists there
-        try {
-          await fetch(`http://localhost:3000/recipes/${recipeToDelete.id}`, {
+      // Add minimum delay to show loading state
+      const deletePromise = (async () => {
+        if (isCustom) {
+          // Delete custom recipe from context
+          deleteCustomRecipe(recipeToDelete.id);
+          
+          // Also try to delete from API if it exists there
+          try {
+            await fetch(`http://localhost:3000/recipes/${recipeToDelete.id}`, {
+              method: 'DELETE'
+            });
+          } catch (apiErr) {
+            console.log('Custom recipe not in API, deleted from context only');
+          }
+        } else {
+          // Delete from API (regular recipe)
+          const response = await fetch(`http://localhost:3000/recipes/${recipeToDelete.id}`, {
             method: 'DELETE'
           });
-        } catch (apiErr) {
-          console.log('Custom recipe not in API, deleted from context only');
+          
+          if (!response.ok) {
+            throw new Error('Failed to delete recipe from server');
+          }
+          
+          // Remove from local API state
+          setApiRecipes(prev => prev.filter(r => r.id !== recipeToDelete.id));
         }
-        
-        setToastMessage(`"${recipeToDelete.name}" deleted successfully!`);
-        setToastType('success');
-      } else {
-        // Delete from API (regular recipe)
-        const response = await fetch(`http://localhost:3000/recipes/${recipeToDelete.id}`, {
-          method: 'DELETE'
-        });
-        
-        if (!response.ok) {
-          throw new Error('Failed to delete recipe from server');
-        }
-        
-        // Remove from local API state
-        setApiRecipes(prev => prev.filter(r => r.id !== recipeToDelete.id));
-        setToastMessage(`"${recipeToDelete.name}" deleted successfully!`);
-        setToastType('success');
-      }
+      })();
+      
+      // Wait for both delete operation and minimum delay
+      await Promise.all([
+        deletePromise,
+        new Promise(resolve => setTimeout(resolve, 800)) // Minimum 800ms loading
+      ]);
+      
+      // Optimistically remove from UI after loading is visible
+      setRemovedIds(prev => [...prev, recipeToDelete.id]);
+      
+      setToastMessage(`"${recipeToDelete.name}" deleted successfully!`);
+      setToastType('success');
+      
+      // Close modal and show success message
+      setShowToast(true);
     } catch (err) {
       console.error('Error deleting recipe:', err);
-      
-      // Restore if error
-      setRemovedIds(prev => prev.filter(id => id !== recipeToDelete.id));
       
       if (isCustom && err.message.includes('Failed to delete recipe from server')) {
         // API failed but custom recipe was deleted from context
         setToastMessage(`"${recipeToDelete.name}" removed from your recipes`);
         setToastType('success');
+        setRemovedIds(prev => [...prev, recipeToDelete.id]);
+        setShowToast(true);
       } else {
         setToastMessage('Failed to delete recipe. Please try again.');
         setToastType('error');
+        setShowToast(true);
       }
     } finally {
+      setDeletingRecipeId(null); // Clear loading state
       setRecipeToDelete(null);
-      setShowToast(true);
     }
   };
 
@@ -284,9 +307,36 @@ const Recipes = () => {
           </div>
         </aside>
         <div className="flex-1 min-w-0">
-          <div className="text-center py-20">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-600"></div>
-            <p className="mt-4 text-slate-600 dark:text-gray-400">Loading recipes...</p>
+          <div className="space-y-6">
+            {/* Header skeleton */}
+            <div className="flex flex-col gap-4">
+              <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded w-1/3 animate-pulse"></div>
+              <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-1/2 animate-pulse"></div>
+            </div>
+            {/* Search bar skeleton */}
+            <div className="h-14 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse"></div>
+            {/* Recipe cards skeleton - matches actual recipe card layout */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {[...Array(4)].map((_, index) => (
+                <div key={index} className="flex flex-col gap-3">
+                  {/* Image skeleton - matches aspect-[4/3] */}
+                  <div className="relative overflow-hidden rounded-xl">
+                    <div className="w-full aspect-[4/3] bg-gray-300 dark:bg-gray-600 rounded-xl animate-pulse"></div>
+                    {/* Favorite button skeleton */}
+                    <div className="absolute top-3 right-3 h-8 w-8 rounded-full bg-gray-400 dark:bg-gray-500 animate-pulse"></div>
+                    {/* Delete button skeleton */}
+                    <div className="absolute top-3 left-3 h-8 w-8 rounded-full bg-gray-400 dark:bg-gray-500 animate-pulse"></div>
+                  </div>
+                  {/* Text content skeleton */}
+                  <div className="flex flex-col gap-2">
+                    {/* Title skeleton */}
+                    <div className="h-5 bg-gray-300 dark:bg-gray-600 rounded w-3/4 animate-pulse"></div>
+                    {/* Time and difficulty skeleton */}
+                    <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded w-1/2 animate-pulse"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -333,22 +383,33 @@ const Recipes = () => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-sm mx-4">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
-              {toastType === 'warning' ? 'Confirm Delete' : 'Success'}
+              {toastType === 'warning' ? (deletingRecipeId ? 'Deleting Recipe...' : 'Confirm Delete') : 'Success'}
             </h3>
             <p className="text-slate-600 dark:text-gray-400 mb-4">{toastMessage}</p>
             {toastType === 'warning' && (
               <div className="flex justify-end gap-3">
                 <button
                   onClick={cancelDelete}
-                  className="px-4 py-2 text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-gray-700 rounded-lg"
+                  disabled={deletingRecipeId !== null}
+                  className="px-4 py-2 text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={confirmDelete}
-                  className="px-4 py-2 bg-red-600 text-white hover:bg-red-700 rounded-lg"
+                  disabled={deletingRecipeId !== null}
+                  className={`px-4 py-2 bg-red-600 text-white hover:bg-red-700 rounded-lg flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed ${
+                    deletingRecipeId !== null ? 'cursor-wait' : ''
+                  }`}
                 >
-                  Delete
+                  {deletingRecipeId !== null ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>
+                      <span>Deleting...</span>
+                    </>
+                  ) : (
+                    'Delete'
+                  )}
                 </button>
               </div>
             )}
@@ -510,57 +571,78 @@ const Recipes = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {currentRecipes.map(recipe => (
-              <Link
-                key={recipe.id}
-                to={`/recipe/${recipe.id}`}
-                className="flex flex-col gap-3 group cursor-pointer block"
-              >
-                <div className="relative overflow-hidden rounded-xl">
-                  <div
-                    className="w-full bg-center bg-cover aspect-[4/3] rounded-xl transition-transform duration-300 group-hover:scale-105"
-                    style={{ backgroundImage: `url(${recipe.image})` }}
-                  ></div>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      toggleFavorite(recipe.id);
-                    }}
-                    className="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm flex items-center justify-center transition-colors z-10"
+            {currentRecipes.map(recipe => {
+              const isDeleting = deletingRecipeId === recipe.id;
+              return (
+                <div key={recipe.id} className={`flex flex-col gap-3 ${isDeleting ? 'opacity-60' : ''}`}>
+                  <Link
+                    to={`/recipe/${recipe.id}`}
+                    className="flex flex-col gap-3 group cursor-pointer block"
                   >
-                    <span
-                      className={`material-symbols-outlined text-xl ${isFavorite(recipe.id) ? 'text-red-500' : 'text-gray-600 dark:text-gray-400 hover:text-red-500'
+                    <div className="relative overflow-hidden rounded-xl">
+                      <div
+                        className="w-full bg-center bg-cover aspect-[4/3] rounded-xl transition-transform duration-300 group-hover:scale-105"
+                        style={{ backgroundImage: `url(${recipe.image})` }}
+                      ></div>
+                      {!isDeleting && (
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            toggleFavorite(recipe.id);
+                          }}
+                          className="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm flex items-center justify-center transition-colors z-10"
+                        >
+                          <span
+                            className={`material-symbols-outlined text-xl ${isFavorite(recipe.id) ? 'text-red-500' : 'text-gray-600 dark:text-gray-400 hover:text-red-500'
+                              }`}
+                            style={isFavorite(recipe.id) ? { fontVariationSettings: "'FILL' 1" } : {}}
+                          >
+                            favorite
+                          </span>
+                        </button>
+                      )}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleDeleteRecipe(recipe.id, recipe.name);
+                        }}
+                        disabled={isDeleting}
+                        className={`absolute top-3 left-3 h-8 w-8 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm flex items-center justify-center transition-colors z-10 hover:bg-red-50 dark:hover:bg-red-900/30 ${
+                          isDeleting ? 'opacity-50 cursor-not-allowed' : ''
                         }`}
-                      style={isFavorite(recipe.id) ? { fontVariationSettings: "'FILL' 1" } : {}}
-                    >
-                      favorite
-                    </span>
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      handleDeleteRecipe(recipe.id, recipe.name);
-                    }}
-                    className="absolute top-3 left-3 h-8 w-8 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm flex items-center justify-center transition-colors z-10 hover:bg-red-50 dark:hover:bg-red-900/30"
-                    title="Delete recipe"
-                  >
-                    <span className="material-symbols-outlined text-xl text-gray-600 dark:text-gray-400 hover:text-red-500">
-                      delete
-                    </span>
-                  </button>
+                        title="Delete recipe"
+                      >
+                        {isDeleting ? (
+                          <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-red-500"></div>
+                        ) : (
+                          <span className="material-symbols-outlined text-xl text-gray-600 dark:text-gray-400 hover:text-red-500">
+                            delete
+                          </span>
+                        )}
+                      </button>
+                      {isDeleting && (
+                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center z-20 rounded-xl">
+                          <div className="bg-white dark:bg-gray-800 rounded-lg px-4 py-2 flex items-center gap-2 shadow-lg">
+                            <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-red-500"></div>
+                            <span className="text-sm font-medium text-gray-900 dark:text-white">Deleting...</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      <p className="text-slate-900 dark:text-white text-base font-bold leading-normal group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
+                        {recipe.name}
+                      </p>
+                      <p className="text-slate-500 dark:text-gray-400 text-sm font-normal leading-normal">
+                        {recipe.time} • {recipe.difficulty}
+                      </p>
+                    </div>
+                  </Link>
                 </div>
-                <div>
-                  <p className="text-slate-900 dark:text-white text-base font-bold leading-normal group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
-                    {recipe.name}
-                  </p>
-                  <p className="text-slate-500 dark:text-gray-400 text-sm font-normal leading-normal">
-                    {recipe.time} • {recipe.difficulty}
-                  </p>
-                </div>
-              </Link>
-            ))}
+              );
+            })}
           </div>
 
           {currentRecipes.length === 0 && (

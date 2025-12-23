@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer.jsx';
 import RecipeCard from '../components/RecipeCard.jsx';
+import Loading from '../components/common/Loading.jsx';
 
 function Home() {
   const [featuredRecipes, setFeaturedRecipes] = useState([]);
@@ -9,6 +10,10 @@ function Home() {
 
   useEffect(() => {
     const fetchFeaturedRecipes = async () => {
+      setIsLoading(true);
+      const startTime = Date.now();
+      const minLoadingTime = 500; // Minimum 500ms to show loading
+      
       try {
         const response = await fetch('http://localhost:3001/recipes');
         if (!response.ok) {
@@ -21,7 +26,12 @@ function Home() {
         console.error('Failed to fetch featured recipes:', err);
         setFeaturedRecipes([]);
       } finally {
-        setIsLoading(false);
+        // Ensure minimum loading time
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, minLoadingTime - elapsed);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, remaining);
       }
     };
 
@@ -129,13 +139,7 @@ function Home() {
 
           {isLoading ? (
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-              {[...Array(4)].map((_, index) => (
-                <div key={index} className="animate-pulse">
-                  <div className="h-48 bg-gray-200 dark:bg-gray-700 rounded-xl mb-4"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
-                  <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
-                </div>
-              ))}
+              <Loading type="card" count={4} message="" />
             </div>
           ) : featuredRecipes.length > 0 ? (
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">

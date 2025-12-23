@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useRecipe } from '../context/RecipeContext';
+import Loading from '../components/common/Loading.jsx';
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -11,6 +12,10 @@ function RecipeDetails() {
 
   useEffect(() => {
     const fetchRecipe = async () => {
+      setLoading(true);
+      const startTime = Date.now();
+      const minLoadingTime = 500; // Minimum 500ms to show loading
+      
       try {
         const response = await fetch(`http://localhost:3001/recipes/${id}`);
         
@@ -23,7 +28,12 @@ function RecipeDetails() {
       } catch (err) {
         setError(err.message);
       } finally {
-        setLoading(false);
+        // Ensure minimum loading time
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, minLoadingTime - elapsed);
+        setTimeout(() => {
+          setLoading(false);
+        }, remaining);
       }
     };
 
@@ -31,14 +41,7 @@ function RecipeDetails() {
   }, [id]);
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading recipe...</p>
-        </div>
-      </div>
-    );
+    return <Loading message="Loading recipe..." fullScreen={true} />;
   }
 
   if (error || !recipe) {
