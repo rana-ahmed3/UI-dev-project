@@ -1,0 +1,777 @@
+{
+  "recipes": [
+    {
+      "id": "lemon-herb-chicken",
+      "title": "Lemon Herb Roasted Chicken",
+      "name": "Lemon Herb Roasted Chicken",
+      "shortDescription": "A bright and zesty roasted chicken that's simple and satisfying.",
+      "description": "A bright and zesty roasted chicken that's simple and satisfying.",
+      "cardDescription": "Bright, zesty chicken perfect for weeknights.",
+      "image": "https://tse4.mm.bing.net/th/id/OIP.scuiWZWva_mriL3MYnIrggHaLH?pid=Api&P=0&h=220",
+      "prepTime": "15 mins",
+      "cookTime": "45 mins",
+      "servings": "4",
+      "cuisine": "Mediterranean",
+      "cuisineType": "Mediterranean",
+      "mealType": "Dinner",
+      "dietary": [],
+      "dietaryRestrictions": [],
+      "difficulty": "Medium",
+      "time": "45 mins",
+      "ingredients": [
+        "1 whole chicken (about 3.5–4 lbs)",
+        "2 lemons, halved",
+        "3 tbsp olive oil",
+        "4 cloves garlic, minced",
+        "1 tbsp fresh rosemary, chopped",
+        "1 tbsp fresh thyme, chopped",
+        "Salt and black pepper to taste"
+      ],
+      "instructions": [
+        "Preheat oven to 425°F (220°C). Pat the chicken dry.",
+        "Whisk oil, garlic, rosemary, thyme, salt, and pepper.",
+        "Rub mixture over chicken; stuff cavity with lemon halves.",
+        "Roast 45–55 minutes, until juices run clear and skin is crisp.",
+        "Rest 10 minutes, carve, and serve with pan juices."
+      ],
+      "nutrition": {
+        "calories": "450",
+        "protein": "50",
+        "carbs": "5",
+        "fat": "25"
+      }
+    },
+    {
+      "id": "mediterranean-salad",
+      "title": "Mediterranean Salad",
+      "name": "Mediterranean Salad",
+      "shortDescription": "Crisp veggies, olives, and tangy feta.",
+      "description": "Crisp veggies, olives, and tangy feta.",
+      "cardDescription": "Fresh and vibrant Mediterranean flavors.",
+      "image": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=300&fit=crop",
+      "prepTime": "10 mins",
+      "cookTime": "5 mins",
+      "servings": "4",
+      "cuisine": "Mediterranean",
+      "cuisineType": "Mediterranean",
+      "mealType": "Lunch",
+      "dietary": [
+        "Vegetarian"
+      ],
+      "dietaryRestrictions": [
+        "Vegetarian"
+      ],
+      "difficulty": "Easy",
+      "time": "10 mins",
+      "ingredients": [
+        "4 cups mixed greens (romaine, arugula)",
+        "1 cup cherry tomatoes, halved",
+        "1 cucumber, sliced",
+        "1/2 red onion, thinly sliced",
+        "1/2 cup Kalamata olives",
+        "4 oz feta cheese, crumbled",
+        "2 tbsp olive oil",
+        "1 tbsp lemon juice",
+        "1 tsp dried oregano",
+        "Salt and pepper to taste"
+      ],
+      "instructions": [
+        "Wash and dry all vegetables thoroughly.",
+        "Combine greens, tomatoes, cucumber, and red onion in a large bowl.",
+        "Add olives and crumbled feta cheese.",
+        "Whisk together olive oil, lemon juice, oregano, salt, and pepper.",
+        "Drizzle dressing over salad and toss gently before serving."
+      ],
+      "nutrition": {
+        "calories": "250",
+        "protein": "8",
+        "carbs": "15",
+        "fat": "18"
+      }
+    },
+    {
+      "id": "spaghetti-carbonara",
+      "title": "Spaghetti Carbonara",
+      "name": "Spaghetti Carbonara",
+      "shortDescription": "Classic Italian pasta with eggs, cheese, pancetta, and black pepper.",
+      "description": "A creamy Roman pasta dish made without cream.",
+      "cardDescription": "Classic Roman pasta—simple and indulgent.",
+      "image": "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=400&h=300&fit=crop",
+      "prepTime": "10 mins",
+      "cookTime": "15 mins",
+      "servings": "4",
+      "cuisine": "Italian",
+      "cuisineType": "Italian",
+      "mealType": "Dinner",
+      "dietary": [],
+      "dietaryRestrictions": [],
+      "difficulty": "Medium",
+      "time": "15 mins",
+      "ingredients": [
+        "400g spaghetti",
+        "150g pancetta or guanciale, diced",
+        "3 large eggs",
+        "1 cup grated Pecorino Romano",
+        "1/2 cup grated Parmesan",
+        "Freshly ground black pepper",
+        "Salt to taste"
+      ],
+      "instructions": [
+        "Boil spaghetti in salted water until al dente.",
+        "Meanwhile, sauté pancetta until crispy.",
+        "Whisk eggs, cheeses, and pepper in a bowl.",
+        "Drain pasta, reserving 1 cup of pasta water.",
+        "Mix hot pasta with pancetta, remove from heat.",
+        "Quickly stir in egg mixture, adding pasta water to create a creamy sauce.",
+        "Serve immediately with extra cheese and pepper."
+      ],
+      "nutrition": {
+        "calories": "550",
+        "protein": "25",
+        "carbs": "65",
+        "fat": "20"
+      }
+    },
+    {
+      "id": "vegetable-stir-fry",
+      "title": "Vegetable Stir Fry",
+      "name": "Vegetable Stir Fry",
+      "shortDescription": "Colorful veggies in a savory soy-ginger sauce.",
+      "description": "Quick and nutritious stir-fry perfect for busy nights.",
+      "cardDescription": "Fast, healthy, and full of color.",
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+      "prepTime": "15 mins",
+      "cookTime": "10 mins",
+      "servings": "4",
+      "cuisine": "Asian",
+      "cuisineType": "Asian",
+      "mealType": "Dinner",
+      "dietary": [
+        "Vegetarian",
+        "Vegan"
+      ],
+      "dietaryRestrictions": [
+        "Vegetarian",
+        "Vegan"
+      ],
+      "difficulty": "Easy",
+      "time": "10 mins",
+      "ingredients": [
+        "2 bell peppers, sliced",
+        "2 carrots, julienned",
+        "1 broccoli head, cut into florets",
+        "1 cup snap peas",
+        "3 cloves garlic, minced",
+        "1 tbsp ginger, minced",
+        "3 tbsp soy sauce",
+        "1 tbsp sesame oil",
+        "2 tbsp vegetable oil",
+        "1 tsp honey or maple syrup",
+        "Green onions for garnish"
+      ],
+      "instructions": [
+        "Heat vegetable oil in a large wok or skillet.",
+        "Add garlic and ginger, stir for 30 seconds.",
+        "Add carrots and broccoli, stir-fry for 4-5 minutes.",
+        "Add bell peppers and snap peas, cook 3 more minutes.",
+        "Mix soy sauce, sesame oil, and honey.",
+        "Pour sauce over vegetables, toss to coat.",
+        "Garnish with green onions and serve hot."
+      ],
+      "nutrition": {
+        "calories": "180",
+        "protein": "6",
+        "carbs": "25",
+        "fat": "7"
+      }
+    },
+    {
+      "id": "beef-burger",
+      "title": "Classic Beef Burger",
+      "name": "Classic Beef Burger",
+      "shortDescription": "Juicy beef patty with cheese, lettuce, and tomato.",
+      "description": "The all-American backyard favorite.",
+      "cardDescription": "Juicy, cheesy, and totally satisfying.",
+      "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop",
+      "prepTime": "15 mins",
+      "cookTime": "10 mins",
+      "servings": "4",
+      "cuisine": "American",
+      "cuisineType": "American",
+      "mealType": "Dinner",
+      "dietary": [],
+      "dietaryRestrictions": [],
+      "difficulty": "Easy",
+      "time": "10 mins",
+      "ingredients": [
+        "1 lb ground beef (80/20)",
+        "4 burger buns",
+        "4 slices cheddar cheese",
+        "Lettuce leaves",
+        "1 tomato, sliced",
+        "1 red onion, sliced",
+        "Salt and pepper",
+        "Ketchup and mustard"
+      ],
+      "instructions": [
+        "Divide beef into 4 patties, season with salt and pepper.",
+        "Grill or pan-fry patties for 4-5 minutes per side.",
+        "Add cheese slices during the last minute to melt.",
+        "Toast burger buns lightly.",
+        "Assemble burgers with lettuce, tomato, onion, and condiments.",
+        "Serve with fries or a side salad."
+      ],
+      "nutrition": {
+        "calories": "520",
+        "protein": "30",
+        "carbs": "35",
+        "fat": "28"
+      }
+    },
+    {
+      "id": "chicken-curry",
+      "title": "Creamy Chicken Curry",
+      "name": "Creamy Chicken Curry",
+      "shortDescription": "Tender chicken in a spiced coconut milk sauce.",
+      "description": "Aromatic and mildly spicy curry perfect with rice.",
+      "cardDescription": "Comforting and aromatic curry dish.",
+      "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&h=300&fit=crop",
+      "prepTime": "20 mins",
+      "cookTime": "30 mins",
+      "servings": "4",
+      "cuisine": "Indian",
+      "cuisineType": "Indian",
+      "mealType": "Dinner",
+      "dietary": [],
+      "dietaryRestrictions": [],
+      "difficulty": "Medium",
+      "time": "30 mins",
+      "ingredients": [
+        "1.5 lbs chicken thighs, boneless",
+        "1 onion, chopped",
+        "3 cloves garlic, minced",
+        "1 tbsp ginger, minced",
+        "2 tbsp curry powder",
+        "1 can (14 oz) coconut milk",
+        "2 tbsp tomato paste",
+        "2 tbsp vegetable oil",
+        "Salt and pepper",
+        "Fresh cilantro for garnish"
+      ],
+      "instructions": [
+        "Heat oil, sauté onion until soft.",
+        "Add garlic, ginger, curry powder, cook 1 minute.",
+        "Add chicken, brown for 5 minutes.",
+        "Stir in tomato paste and coconut milk.",
+        "Simmer covered for 20-25 minutes until chicken is tender.",
+        "Season with salt and pepper.",
+        "Garnish with cilantro, serve with rice or naan."
+      ],
+      "nutrition": {
+        "calories": "480",
+        "protein": "35",
+        "carbs": "12",
+        "fat": "32"
+      }
+    },
+    {
+      "id": "avocado-toast",
+      "title": "Avocado Toast",
+      "name": "Avocado Toast",
+      "shortDescription": "Mashed avocado on toasted sourdough with seasoning.",
+      "description": "A trendy, healthy breakfast or snack.",
+      "cardDescription": "Simple, nutritious, and Instagram-worthy.",
+      "image": "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=400&h=300&fit=crop",
+      "prepTime": "5 mins",
+      "cookTime": "3 mins",
+      "servings": "1",
+      "cuisine": "American",
+      "cuisineType": "American",
+      "mealType": "Breakfast",
+      "dietary": [
+        "Vegetarian",
+        "Vegan"
+      ],
+      "dietaryRestrictions": [
+        "Vegetarian",
+        "Vegan"
+      ],
+      "difficulty": "Easy",
+      "time": "3 mins",
+      "ingredients": [
+        "2 slices sourdough bread",
+        "1 ripe avocado",
+        "1 lime, juiced",
+        "Red pepper flakes",
+        "Salt and pepper",
+        "Optional: poached egg, cherry tomatoes, microgreens"
+      ],
+      "instructions": [
+        "Toast bread until golden and crisp.",
+        "Mash avocado with lime juice, salt, and pepper.",
+        "Spread avocado mixture on toast.",
+        "Sprinkle with red pepper flakes.",
+        "Top with optional ingredients if desired."
+      ],
+      "nutrition": {
+        "calories": "320",
+        "protein": "8",
+        "carbs": "35",
+        "fat": "18"
+      }
+    },
+    {
+      "id": "beef-tacos",
+      "title": "Beef Tacos",
+      "name": "Beef Tacos",
+      "shortDescription": "Seasoned ground beef in crispy taco shells with toppings.",
+      "description": "A fun, customizable Mexican dinner.",
+      "cardDescription": "Family-friendly taco night favorite.",
+      "image": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&h=300&fit=crop",
+      "prepTime": "15 mins",
+      "cookTime": "10 mins",
+      "servings": "4",
+      "cuisine": "Mexican",
+      "cuisineType": "Mexican",
+      "mealType": "Dinner",
+      "dietary": [],
+      "dietaryRestrictions": [],
+      "difficulty": "Easy",
+      "time": "10 mins",
+      "ingredients": [
+        "1 lb ground beef",
+        "8 taco shells",
+        "1 packet taco seasoning",
+        "1 cup shredded lettuce",
+        "1 cup diced tomatoes",
+        "1 cup shredded cheddar cheese",
+        "1/2 cup sour cream",
+        "Salsa"
+      ],
+      "instructions": [
+        "Brown ground beef in a skillet, drain fat.",
+        "Add taco seasoning and water, simmer 5 minutes.",
+        "Heat taco shells according to package.",
+        "Fill shells with beef, top with lettuce, tomatoes, cheese.",
+        "Serve with sour cream and salsa."
+      ],
+      "nutrition": {
+        "calories": "380",
+        "protein": "22",
+        "carbs": "25",
+        "fat": "20"
+      }
+    },
+    {
+      "id": "shrimp-scampi",
+      "title": "Shrimp Scampi",
+      "name": "Shrimp Scampi",
+      "shortDescription": "Garlic butter shrimp served over pasta.",
+      "description": "Elegant yet easy seafood pasta.",
+      "cardDescription": "Garlicky, buttery, and restaurant-quality.",
+      "image": "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400&h=300&fit=crop",
+      "prepTime": "10 mins",
+      "cookTime": "15 mins",
+      "servings": "4",
+      "cuisine": "Italian",
+      "cuisineType": "Italian",
+      "mealType": "Dinner",
+      "dietary": [],
+      "dietaryRestrictions": [],
+      "difficulty": "Medium",
+      "time": "15 mins",
+      "ingredients": [
+        "1 lb shrimp, peeled and deveined",
+        "8 oz linguine",
+        "4 cloves garlic, minced",
+        "1/4 cup white wine",
+        "4 tbsp butter",
+        "2 tbsp olive oil",
+        "Juice of 1 lemon",
+        "Parsley, chopped",
+        "Salt and pepper"
+      ],
+      "instructions": [
+        "Cook pasta according to package directions.",
+        "Heat butter and oil, sauté garlic 1 minute.",
+        "Add shrimp, cook until pink.",
+        "Pour in wine and lemon juice, simmer 2 minutes.",
+        "Toss with drained pasta, garnish with parsley."
+      ],
+      "nutrition": {
+        "calories": "450",
+        "protein": "30",
+        "carbs": "45",
+        "fat": "18"
+      }
+    },
+    {
+      "id": "caesar-salad",
+      "title": "Caesar Salad",
+      "name": "Caesar Salad",
+      "shortDescription": "Crisp romaine with creamy Caesar dressing and croutons.",
+      "description": "A classic salad with homemade dressing.",
+      "cardDescription": "Crisp, creamy, and crunchy.",
+      "image": "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=300&fit=crop",
+      "prepTime": "15 mins",
+      "cookTime": "20 mins",
+      "servings": "4",
+      "cuisine": "American",
+      "cuisineType": "American",
+      "mealType": "Lunch",
+      "dietary": [],
+      "dietaryRestrictions": [],
+      "difficulty": "Easy",
+      "time": "5 mins",
+      "ingredients": [
+        "1 head romaine lettuce, chopped",
+        "1 cup croutons",
+        "1/2 cup Parmesan cheese, grated",
+        "1/4 cup Caesar dressing",
+        "Optional: grilled chicken, anchovies"
+      ],
+      "instructions": [
+        "Wash and dry romaine leaves.",
+        "Toss lettuce with dressing in a large bowl.",
+        "Add croutons and half the Parmesan.",
+        "Top with remaining cheese and optional proteins.",
+        "Serve immediately."
+      ],
+      "nutrition": {
+        "calories": "280",
+        "protein": "12",
+        "carbs": "20",
+        "fat": "16"
+      }
+    },
+    {
+      "id": "mushroom-risotto",
+      "title": "Mushroom Risotto",
+      "name": "Mushroom Risotto",
+      "shortDescription": "Creamy Italian rice with mushrooms and Parmesan.",
+      "description": "A comforting, slow-cooked dish.",
+      "cardDescription": "Rich, creamy, and full of umami.",
+      "image": "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&h=300&fit=crop",
+      "prepTime": "15 mins",
+      "cookTime": "30 mins",
+      "servings": "4",
+      "cuisine": "Italian",
+      "cuisineType": "Italian",
+      "mealType": "Dinner",
+      "dietary": [
+        "Vegetarian"
+      ],
+      "dietaryRestrictions": [
+        "Vegetarian"
+      ],
+      "difficulty": "Medium",
+      "time": "30 mins",
+      "ingredients": [
+        "1.5 cups Arborio rice",
+        "4 cups vegetable broth",
+        "1 lb mushrooms, sliced",
+        "1 onion, diced",
+        "1/2 cup white wine",
+        "1/2 cup Parmesan, grated",
+        "3 tbsp butter",
+        "2 tbsp olive oil",
+        "Salt and pepper"
+      ],
+      "instructions": [
+        "Heat broth in a saucepan, keep warm.",
+        "Sauté onions and mushrooms in butter and oil.",
+        "Add rice, toast 2 minutes.",
+        "Pour in wine, stir until absorbed.",
+        "Add broth one ladle at a time, stirring frequently.",
+        "When rice is creamy and tender, stir in Parmesan.",
+        "Season and serve hot."
+      ],
+      "nutrition": {
+        "calories": "420",
+        "protein": "14",
+        "carbs": "60",
+        "fat": "12"
+      }
+    },
+    {
+      "id": "chicken-noodle-soup",
+      "title": "Chicken Noodle Soup",
+      "name": "Chicken Noodle Soup",
+      "shortDescription": "Hearty soup with chicken, vegetables, and noodles.",
+      "description": "The ultimate comfort food for cold days.",
+      "cardDescription": "Warm, comforting, and wholesome.",
+      "image": "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop",
+      "prepTime": "20 mins",
+      "cookTime": "30 mins",
+      "servings": "6",
+      "cuisine": "American",
+      "cuisineType": "American",
+      "mealType": "Lunch",
+      "dietary": [],
+      "dietaryRestrictions": [],
+      "difficulty": "Easy",
+      "time": "30 mins",
+      "ingredients": [
+        "1 lb chicken breast, cubed",
+        "8 cups chicken broth",
+        "2 carrots, sliced",
+        "2 celery stalks, sliced",
+        "1 onion, diced",
+        "2 cups egg noodles",
+        "2 tbsp olive oil",
+        "Salt, pepper, thyme"
+      ],
+      "instructions": [
+        "Sauté onions, carrots, celery in oil until soft.",
+        "Add chicken, cook until no longer pink.",
+        "Pour in broth, bring to a boil.",
+        "Add noodles, simmer 10 minutes until tender.",
+        "Season with salt, pepper, and thyme.",
+        "Serve hot."
+      ],
+      "nutrition": {
+        "calories": "220",
+        "protein": "20",
+        "carbs": "22",
+        "fat": "6"
+      }
+    },
+    {
+      "id": "pancakes",
+      "title": "Fluffy Pancakes",
+      "name": "Fluffy Pancakes",
+      "shortDescription": "Light, fluffy pancakes perfect for breakfast.",
+      "description": "A classic breakfast treat with maple syrup.",
+      "cardDescription": "Fluffy, golden, and delicious.",
+      "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop",
+      "prepTime": "10 mins",
+      "cookTime": "15 mins",
+      "servings": "4",
+      "cuisine": "American",
+      "cuisineType": "American",
+      "mealType": "Breakfast",
+      "dietary": [
+        "Vegetarian"
+      ],
+      "dietaryRestrictions": [
+        "Vegetarian"
+      ],
+      "difficulty": "Easy",
+      "time": "15 mins",
+      "ingredients": [
+        "1.5 cups flour",
+        "3.5 tsp baking powder",
+        "1 tbsp sugar",
+        "1.25 cups milk",
+        "1 egg",
+        "3 tbsp melted butter",
+        "Maple syrup for serving"
+      ],
+      "instructions": [
+        "Mix dry ingredients in a bowl.",
+        "Whisk milk, egg, and butter in another bowl.",
+        "Combine wet and dry until just mixed.",
+        "Heat a non-stick pan, pour 1/4 cup batter per pancake.",
+        "Flip when bubbles form, cook until golden.",
+        "Serve with syrup."
+      ],
+      "nutrition": {
+        "calories": "250",
+        "protein": "7",
+        "carbs": "38",
+        "fat": "8"
+      }
+    },
+    {
+      "id": "lentil-soup",
+      "title": "Hearty Lentil Soup",
+      "name": "Hearty Lentil Soup",
+      "shortDescription": "Warming soup with lentils, carrots, and spices.",
+      "description": "A nutritious, protein-packed vegetarian soup.",
+      "cardDescription": "Hearty, healthy, and filling.",
+      "image": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=300&fit=crop",
+      "prepTime": "15 mins",
+      "cookTime": "40 mins",
+      "servings": "6",
+      "cuisine": "Mediterranean",
+      "cuisineType": "Mediterranean",
+      "mealType": "Lunch",
+      "dietary": [
+        "Vegetarian",
+        "Vegan"
+      ],
+      "dietaryRestrictions": [
+        "Vegetarian",
+        "Vegan"
+      ],
+      "difficulty": "Easy",
+      "time": "40 mins",
+      "ingredients": [
+        "1 cup brown lentils",
+        "1 onion, chopped",
+        "2 carrots, diced",
+        "2 celery stalks, diced",
+        "4 cups vegetable broth",
+        "2 cloves garlic, minced",
+        "1 tsp cumin",
+        "2 tbsp olive oil",
+        "Salt and pepper"
+      ],
+      "instructions": [
+        "Sauté onion, carrots, celery in oil until soft.",
+        "Add garlic and cumin, cook 1 minute.",
+        "Add lentils and broth, bring to a boil.",
+        "Simmer 30-40 minutes until lentils are tender.",
+        "Season with salt and pepper.",
+        "Serve hot with bread."
+      ],
+      "nutrition": {
+        "calories": "200",
+        "protein": "12",
+        "carbs": "35",
+        "fat": "3"
+      }
+    },
+    {
+      "id": "sushi-rolls",
+      "title": "Vegetable Sushi Rolls",
+      "name": "Vegetable Sushi Rolls",
+      "shortDescription": "Homemade sushi rolls with cucumber, avocado, and carrot.",
+      "description": "Fresh, light, and fun to make at home.",
+      "cardDescription": "Fresh, colorful, and healthy.",
+      "image": "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400&h=300&fit=crop",
+      "prepTime": "30 mins",
+      "cookTime": "20 mins",
+      "servings": "4",
+      "cuisine": "Japanese",
+      "cuisineType": "Japanese",
+      "mealType": "Dinner",
+      "dietary": [
+        "Vegetarian",
+        "Vegan"
+      ],
+      "dietaryRestrictions": [
+        "Vegetarian",
+        "Vegan"
+      ],
+      "difficulty": "Hard",
+      "time": "20 mins",
+      "ingredients": [
+        "2 cups sushi rice",
+        "4 nori sheets",
+        "1 avocado, sliced",
+        "1 cucumber, julienned",
+        "1 carrot, julienned",
+        "Soy sauce, pickled ginger, wasabi"
+      ],
+      "instructions": [
+        "Cook sushi rice according to package, let cool.",
+        "Place nori on bamboo mat, spread rice evenly.",
+        "Arrange vegetables in a line near the edge.",
+        "Roll tightly using the mat.",
+        "Slice into pieces with a wet knife.",
+        "Serve with soy sauce, ginger, and wasabi."
+      ],
+      "nutrition": {
+        "calories": "320",
+        "protein": "8",
+        "carbs": "65",
+        "fat": "5"
+      }
+    },
+    {
+      "id": "chocolate-chip-cookies",
+      "title": "Chocolate Chip Cookies",
+      "name": "Chocolate Chip Cookies",
+      "shortDescription": "Soft, chewy cookies loaded with chocolate chips.",
+      "description": "The ultimate homemade cookie recipe.",
+      "cardDescription": "Classic, chewy, and irresistible.",
+      "image": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&h=300&fit=crop",
+      "prepTime": "15 mins",
+      "cookTime": "12 mins",
+      "servings": "24 cookies",
+      "cuisine": "American",
+      "cuisineType": "American",
+      "mealType": "Dessert",
+      "dietary": [
+        "Vegetarian"
+      ],
+      "dietaryRestrictions": [
+        "Vegetarian"
+      ],
+      "difficulty": "Easy",
+      "time": "12 mins",
+      "ingredients": [
+        "2.25 cups flour",
+        "1 tsp baking soda",
+        "1 cup butter, softened",
+        "3/4 cup brown sugar",
+        "3/4 cup white sugar",
+        "2 eggs",
+        "2 cups chocolate chips",
+        "1 tsp vanilla extract"
+      ],
+      "instructions": [
+        "Preheat oven to 375°F (190°C).",
+        "Cream butter and sugars until fluffy.",
+        "Beat in eggs and vanilla.",
+        "Mix in flour and baking soda.",
+        "Stir in chocolate chips.",
+        "Drop spoonfuls onto baking sheets.",
+        "Bake 9-12 minutes until edges are golden.",
+        "Cool on wire racks."
+      ],
+      "nutrition": {
+        "calories": "220",
+        "protein": "3",
+        "carbs": "30",
+        "fat": "10"
+      }
+    },
+    {
+      "id": "hummus-plate",
+      "title": "Hummus Plate",
+      "name": "Hummus Plate",
+      "shortDescription": "Creamy hummus served with pita and veggies.",
+      "description": "A Middle Eastern appetizer or light meal.",
+      "cardDescription": "Creamy, garlicky, and perfect for dipping.",
+      "image": "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400&h=300&fit=crop",
+      "prepTime": "10 mins",
+      "cookTime": "7 mins",
+      "servings": "4",
+      "cuisine": "Middle Eastern",
+      "cuisineType": "Middle Eastern",
+      "mealType": "Appetizer",
+      "dietary": [
+        "Vegetarian",
+        "Vegan"
+      ],
+      "dietaryRestrictions": [
+        "Vegetarian",
+        "Vegan"
+      ],
+      "difficulty": "Easy",
+      "time": "7 mins",
+      "ingredients": [
+        "1 can chickpeas, drained",
+        "1/4 cup tahini",
+        "2 cloves garlic",
+        "Juice of 1 lemon",
+        "3 tbsp olive oil",
+        "Pita bread, cucumber, carrots for serving"
+      ],
+      "instructions": [
+        "Blend chickpeas, tahini, garlic, lemon juice until smooth.",
+        "Add water or oil to reach desired consistency.",
+        "Drizzle with olive oil, sprinkle paprika.",
+        "Serve with warm pita and sliced vegetables."
+      ],
+      "nutrition": {
+        "calories": "280",
+        "protein": "9",
+        "carbs": "25",
+        "fat": "16"
+      }
+    }
+  ]
+}

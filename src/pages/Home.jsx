@@ -1,15 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import RecipeCard from '../components/RecipeCard.jsx';
-import { recipes } from '../data/recipes.js';
 
 function Home() {
+  const [featuredRecipes, setFeaturedRecipes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchFeaturedRecipes = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/recipes');
+        if (!response.ok) {
+          throw new Error(`API error: ${response.status}`);
+        }
+        const data = await response.json();
+        // Take first 4 recipes as featured
+        setFeaturedRecipes(data.slice(0, 4));
+      } catch (err) {
+        console.error('Failed to fetch featured recipes:', err);
+        setFeaturedRecipes([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchFeaturedRecipes();
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-950 text-gray-800 dark:text-gray-200">
-      {/* <Navbar /> */}
-
       {/* Hero */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-emerald-900 to-emerald-700" />
@@ -75,7 +95,10 @@ function Home() {
                 Organize meals into an easy, balanced plan for your week.
               </p>
             </Link>
-            <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+            <Link
+              to="/recipes"
+              className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm hover:shadow-md transition-shadow cursor-pointer block"
+            >
               <div className="h-10 w-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 flex items-center justify-center font-bold">
                 3
               </div>
@@ -83,7 +106,7 @@ function Home() {
               <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                 Follow step-by-step instructions and enjoy stress-free cooking.
               </p>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -104,19 +127,39 @@ function Home() {
             </Link>
           </div>
 
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {recipes.map((recipe, index) => (
-              <RecipeCard key={recipe.id} recipe={recipe} index={index} />
-            ))}
-          </div>
+          {isLoading ? (
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+              {[...Array(4)].map((_, index) => (
+                <div key={index} className="animate-pulse">
+                  <div className="h-48 bg-gray-200 dark:bg-gray-700 rounded-xl mb-4"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
+                  <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                </div>
+              ))}
+            </div>
+          ) : featuredRecipes.length > 0 ? (
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+              {featuredRecipes.map((recipe, index) => (
+                <RecipeCard key={recipe.id} recipe={recipe} index={index} />
+              ))}
+            </div>
+          ) : (
+            <div className="mt-8 text-center py-12">
+              <p className="text-gray-500 dark:text-gray-400">No featured recipes available</p>
+              <Link
+                to="/recipes"
+                className="mt-4 inline-flex items-center text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300"
+              >
+                Browse all recipes →
+              </Link>
+            </div>
+          )}
         </div>
       </section>
 
-      <Footer />
+       {/* <Footer />*/}
     </div>
   );
 }
 
 export default Home;
-
-

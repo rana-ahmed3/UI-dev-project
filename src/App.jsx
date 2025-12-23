@@ -8,6 +8,7 @@ import Layout from './components/common/Layout';
 import Home from './pages/Home';
 import RecipeDetails from './pages/RecipeDetails';
 import AddRecipe from './pages/AddRecipe';
+//import EditRecipe from './pages/EditRecipe';
 import Recipes from './pages/Recipes';
 import Profile from './pages/Profile';
 import Dashboard from './pages/MealPlanner';
@@ -22,6 +23,7 @@ const HomeWithLayout = () => <Layout><Home /></Layout>;
 const RecipeDetailsWithLayout = () => <Layout><RecipeDetails /></Layout>;
 const RecipesWithLayout = () => <Layout><Recipes /></Layout>;
 const AddRecipeWithLayout = () => <Layout><AddRecipe /></Layout>;
+const EditRecipeWithLayout = () => <Layout><EditRecipe /></Layout>;
 const DashboardWithLayout = () => <Layout><Dashboard /></Layout>;
 const ProfileWithLayout = () => <Layout><Profile /></Layout>;
 const LoginWithLayout = () => <Layout><Login /></Layout>;
@@ -66,6 +68,8 @@ function App() {
                                         <AddRecipeWithLayout />
                                     </ProtectedRoute>
                                 } />
+
+                               <Route path="/edit-recipe/:id" element={<div>Edit Recipe Page (Coming Soon)</div>} />
 
                                 {/* Admin-only routes */}
                                 <Route path="/admin" element={

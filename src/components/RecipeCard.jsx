@@ -72,5 +72,3 @@ function RecipeCard({ recipe, index = 0 }) {
 }
 
 export default RecipeCard;
-
-
