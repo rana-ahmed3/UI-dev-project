@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import Toast from '../components/common/Toast';
 import { useRecipe } from '../context/RecipeContext';
-
+import { useNavigate } from 'react-router-dom'; 
+import { useAuth } from '../context/AuthContext'; 
 const AddRecipe = () => {
     const { addCustomRecipe } = useRecipe();
+     const { isAdmin } = useAuth(); 
+    const navigate = useNavigate();
     const [showCancelConfirm, setShowCancelConfirm] = useState(false);
     const [recipe, setRecipe] = useState({
         name: '',
@@ -102,9 +105,16 @@ const AddRecipe = () => {
         setSelectedImage(null);
         setImagePreview(null);
         showToast('Recipe saved successfully!', 'success'); 
+        // Wait 2 seconds then redirect based on user role
+        setTimeout(() => {
+            if (isAdmin()) {
+                navigate('/admin'); // Admin goes to admin dashboard
+            }
+        }, 2000);
     };
 
-
+    
+        
     // handle cancel
     const handleCancel = () => {
         setShowCancelConfirm(true);

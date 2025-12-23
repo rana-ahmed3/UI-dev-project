@@ -8,7 +8,7 @@ import { recipes } from '../data/recipes.js';
 function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-950 text-gray-800 dark:text-gray-200">
-      <Navbar />
+      {/* <Navbar /> */}
 
       {/* Hero */}
       <section className="relative isolate overflow-hidden">

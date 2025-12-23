@@ -18,6 +18,8 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 import NotFound from './pages/NotFound';
 
 // Wrapper components for pages that need Layout
+const HomeWithLayout = () => <Layout><Home /></Layout>;
+const RecipeDetailsWithLayout = () => <Layout><RecipeDetails /></Layout>;
 const RecipesWithLayout = () => <Layout><Recipes /></Layout>;
 const AddRecipeWithLayout = () => <Layout><AddRecipe /></Layout>;
 const DashboardWithLayout = () => <Layout><Dashboard /></Layout>;
@@ -25,55 +27,60 @@ const ProfileWithLayout = () => <Layout><Profile /></Layout>;
 const LoginWithLayout = () => <Layout><Login /></Layout>;
 const SignupWithLayout = () => <Layout><Signup /></Layout>;
 const NotFoundWithLayout = () => <Layout><NotFound /></Layout>;
+
 function App() {
     return (
         <ThemeProvider>
-            <RecipeProvider>
-                <WeeklyMealProvider>
-                    <AuthProvider>
+            <AuthProvider>
+                <RecipeProvider>
+                    <WeeklyMealProvider>
                         <Router>
                             <Routes>
                                 {/* Public routes */}
-                                <Route path="/" element={<Home />} />
-                                <Route path="/recipe/:id" element={<RecipeDetails />} />
+                                <Route path="/" element={<HomeWithLayout />} />
+                                <Route path="/recipe/:id" element={<RecipeDetailsWithLayout />} />
                                 <Route path="/login" element={<LoginWithLayout />} />
                                 <Route path="/signup" element={<SignupWithLayout />} />
 
-                                {/* Protected routes for all authenticated users */}
+                                {/* Protected routes for authenticated users */}
                                 <Route path="/recipes" element={
                                     <ProtectedRoute>
                                         <RecipesWithLayout />
                                     </ProtectedRoute>
                                 } />
+                                
                                 <Route path="/profile" element={
                                     <ProtectedRoute>
                                         <ProfileWithLayout />
                                     </ProtectedRoute>
                                 } />
+                                
                                 <Route path="/meal-planner" element={
-                                    <ProtectedRoute adminOnly={true}>
+                                    <ProtectedRoute>
                                         <DashboardWithLayout />
                                     </ProtectedRoute>
                                 } />
+                                
                                 <Route path="/add-recipe" element={
-                                    <ProtectedRoute adminOnly={true}>
+                                    <ProtectedRoute>
                                         <AddRecipeWithLayout />
                                     </ProtectedRoute>
                                 } />
 
-                                {/* Admin-only route - AdminDashboard has its own navbar */}
+                                {/* Admin-only routes */}
                                 <Route path="/admin" element={
                                     <ProtectedRoute adminOnly={true}>
                                         <AdminDashboard />
                                     </ProtectedRoute>
                                 } />
+                                
                                 {/* 404 page route */}
                                 <Route path="*" element={<NotFoundWithLayout />} />
                             </Routes>
                         </Router>
-                    </AuthProvider>
-                </WeeklyMealProvider>
-            </RecipeProvider>
+                    </WeeklyMealProvider>
+                </RecipeProvider>
+            </AuthProvider>
         </ThemeProvider>
     );
 }

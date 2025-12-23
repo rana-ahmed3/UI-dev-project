@@ -45,7 +45,7 @@ const Login = () => {
       newErrors.password = 'Password is required';
     }
     else if (formData.password.length < 6) {
-      newErrors.password = 'Password is not less than 6 characters';
+      newErrors.password = 'Password must be at least 6 characters';
     }
 
     setErrors(newErrors);
@@ -60,6 +60,7 @@ const Login = () => {
     }
 
     setIsLoading(true);
+    setErrors({ submit: '' });
 
     try {
       // Use the auth context login function
@@ -78,7 +79,8 @@ const Login = () => {
         setErrors({ submit: result.message || 'Login failed. Please check your credentials and try again.' });
       }
     } catch (error) {
-      setErrors({ submit: 'Login failed. Please check your credentials and try again.' });
+      setErrors({ submit: 'An unexpected error occurred. Please try again.' });
+      console.error('Login error:', error);
     } finally {
       setIsLoading(false);
     }
@@ -197,10 +199,13 @@ const Login = () => {
               </p>
             </div>
 
-            {/* admin  pass */}
+            {/* Demo credentials */}
             <div className="mt-6 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg">
-              <div className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
-                <p><span className="font-medium">Admin:</span> admin@recipefinder.com / admin123</p>
+              <div className="text-xs text-gray-600 dark:text-gray-400 space-y-2">
+                <p className="font-medium">Demo Credentials:</p>
+                <p><span className="font-semibold">Admin:</span> admin@recipefinder.com / admin123</p>
+                <p><span className="font-semibold">User:</span> rana.ahmed@zewailcity.edu.eg / rana123</p>
+                <p className="text-xs mt-2">Or create your own account with any email</p>
               </div>
             </div>
           </form>

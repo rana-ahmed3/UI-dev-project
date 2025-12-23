@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; 
+import { useAuth } from '../context/AuthContext';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -88,14 +88,19 @@ const Signup = () => {
     }
 
     setIsLoading(true);
+    setErrors({ submit: '' });
 
     try {
-      // Use the auth context signup function
-      const result = await signup({
+      // Create user data with password
+      const userData = {
         firstName: formData.firstName,
         lastName: formData.lastName,
-        email: formData.email
-      });
+        email: formData.email,
+        password: formData.password // Store password for login
+      };
+      
+      // Use the auth context signup function
+      const result = await signup(userData);
       
       if (result.success) {
         // Redirect to home page after successful signup
@@ -105,7 +110,8 @@ const Signup = () => {
       }
       
     } catch (error) {
-      setErrors({ submit: 'Signup failed. Please try again.' });
+      setErrors({ submit: 'An unexpected error occurred. Please try again.' });
+      console.error('Signup error:', error);
     } finally {
       setIsLoading(false);
     }
@@ -220,11 +226,14 @@ const Signup = () => {
                   className={`mt-1 block w-full px-3 py-3 border rounded-lg shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition duration-300 ${
                     errors.password ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                   }`}
-                  placeholder="Create a password"
+                  placeholder="Create a password (min. 6 characters)"
                 />
                 {errors.password && (
                   <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.password}</p>
                 )}
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  Password must be at least 6 characters long
+                </p>
               </div>
               
               <div>
@@ -260,7 +269,7 @@ const Signup = () => {
                 className="h-4 w-4 accent-green-500 rounded mt-1"
               />
               <label htmlFor="terms" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
-                I agree to the <a href="#" className="text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300 transition duration-300">Terms and Conditions</a>
+                I agree to the <a href="#" className="text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300 transition duration-300">Terms and Conditions</a> and <a href="#" className="text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300 transition duration-300">Privacy Policy</a>
               </label>
             </div>
             {errors.terms && (
