@@ -363,9 +363,10 @@ const AdminDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-500 dark:text-gray-400">Total Recipes</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{stats.totalRecipes}</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{stats.totalRecipes+15}</p>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                  {customRecipes.length} custom + {stats.totalRecipes - customRecipes.length} default
+                  {customRecipes.length} custom + 15 default
+                  {/* {stats.totalRecipes - customRecipes.length}  */}
                 </p>
               </div>
               <BarChart className="h-10 w-10 text-green-500" />

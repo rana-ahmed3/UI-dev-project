@@ -202,10 +202,9 @@ const Login = () => {
             {/* Demo credentials */}
             <div className="mt-6 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg">
               <div className="text-xs text-gray-600 dark:text-gray-400 space-y-2">
-                <p className="font-medium">Demo Credentials:</p>
+                <p className="font-medium">Users</p>
                 <p><span className="font-semibold">Admin:</span> admin@recipefinder.com / admin123</p>
                 <p><span className="font-semibold">User:</span> rana.ahmed@zewailcity.edu.eg / rana123</p>
-                <p className="text-xs mt-2">Or create your own account with any email</p>
               </div>
             </div>
           </form>

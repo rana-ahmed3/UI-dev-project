@@ -5,7 +5,7 @@ import { useWeeklyMeal } from '../context/WeeklyMealContext';
 const Dashboard = () => {
   const { favorites, customRecipes } = useRecipe();
   const { weeklyMeals, updateMeal, deleteMeal, resetMeals, clearAllMeals } = useWeeklyMeal();
-  
+
   // Meal statistics
   const [mealStats, setMealStats] = useState({
     breakfast: { percentage: 0, count: 0 },
@@ -193,9 +193,9 @@ const Dashboard = () => {
         let category = mealTypeToCategory[recipe.mealType] || 'Other';
         if (recipe.name.toLowerCase().includes('salad')) category = 'Salads';
         else if (recipe.name.toLowerCase().includes('soup')) category = 'Soups';
-        else if (recipe.name.toLowerCase().includes('snack') || 
-                 recipe.name.toLowerCase().includes('guacamole') || 
-                 recipe.name.toLowerCase().includes('hummus')) category = 'Snacks';
+        else if (recipe.name.toLowerCase().includes('snack') ||
+          recipe.name.toLowerCase().includes('guacamole') ||
+          recipe.name.toLowerCase().includes('hummus')) category = 'Snacks';
         categoryCounts[category]++;
       }
     });
@@ -215,7 +215,7 @@ const Dashboard = () => {
   // Generate meal cost trends data - LINE CHART ONLY
   const generateCostData = () => {
     let data = [];
-    
+
     if (costFilter === 'week') {
       const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
       data = daysOfWeek.map((day, index) => ({
@@ -241,7 +241,7 @@ const Dashboard = () => {
         }
       }));
     }
-    
+
     setCostData(data);
     setSelectedDay(null);
     setDayDetails(null);
@@ -250,9 +250,9 @@ const Dashboard = () => {
   // Generate today's (Wednesday) meal prep time data
   const generateTodaysPrepTimeData = () => {
     const wednesdayMeals = weeklyMeals.wednesday;
-    
+
     const mealsData = [];
-    
+
     // Meal prep time mapping
     const mealPrepTimeMapping = {
       'Breakfast Items': {
@@ -271,22 +271,22 @@ const Dashboard = () => {
         'Chicken': 25, 'Fish': 20, 'Stir Fry': 25, 'Bake': 45, 'Roast': 90, 'Grill': 30
       }
     };
-    
+
     // Get breakfast prep time
     if (wednesdayMeals.breakfast?.trim()) {
       const breakfastName = wednesdayMeals.breakfast;
       let prepTime = 10;
-      
+
       for (const [category, meals] of Object.entries(mealPrepTimeMapping)) {
         for (const [mealName, time] of Object.entries(meals)) {
-          if (breakfastName.toLowerCase().includes(mealName.toLowerCase()) || 
-              mealName.toLowerCase().includes(breakfastName.toLowerCase())) {
+          if (breakfastName.toLowerCase().includes(mealName.toLowerCase()) ||
+            mealName.toLowerCase().includes(breakfastName.toLowerCase())) {
             prepTime = time;
             break;
           }
         }
       }
-      
+
       mealsData.push({
         meal: breakfastName,
         type: 'Breakfast',
@@ -295,22 +295,22 @@ const Dashboard = () => {
         color: 'bg-green-500'
       });
     }
-    
+
     // Get lunch prep time
     if (wednesdayMeals.lunch?.trim()) {
       const lunchName = wednesdayMeals.lunch;
       let prepTime = 20;
-      
+
       for (const [category, meals] of Object.entries(mealPrepTimeMapping)) {
         for (const [mealName, time] of Object.entries(meals)) {
-          if (lunchName.toLowerCase().includes(mealName.toLowerCase()) || 
-              mealName.toLowerCase().includes(lunchName.toLowerCase())) {
+          if (lunchName.toLowerCase().includes(mealName.toLowerCase()) ||
+            mealName.toLowerCase().includes(lunchName.toLowerCase())) {
             prepTime = time;
             break;
           }
         }
       }
-      
+
       mealsData.push({
         meal: lunchName,
         type: 'Lunch',
@@ -319,22 +319,22 @@ const Dashboard = () => {
         color: 'bg-blue-500'
       });
     }
-    
+
     // Get dinner prep time
     if (wednesdayMeals.dinner?.trim()) {
       const dinnerName = wednesdayMeals.dinner;
       let prepTime = 30;
-      
+
       for (const [category, meals] of Object.entries(mealPrepTimeMapping)) {
         for (const [mealName, time] of Object.entries(meals)) {
-          if (dinnerName.toLowerCase().includes(mealName.toLowerCase()) || 
-              mealName.toLowerCase().includes(dinnerName.toLowerCase())) {
+          if (dinnerName.toLowerCase().includes(mealName.toLowerCase()) ||
+            mealName.toLowerCase().includes(dinnerName.toLowerCase())) {
             prepTime = time;
             break;
           }
         }
       }
-      
+
       mealsData.push({
         meal: dinnerName,
         type: 'Dinner',
@@ -343,7 +343,7 @@ const Dashboard = () => {
         color: 'bg-purple-500'
       });
     }
-    
+
     setTodaysPrepTimeData(mealsData);
   };
 
@@ -355,7 +355,7 @@ const Dashboard = () => {
       count: Math.floor(Math.random() * 5) + 1,
       color: `hsl(${Math.floor(Math.random() * 360)}, 70%, 60%)`
     }));
-    
+
     setCuisineData(data);
   };
 
@@ -444,7 +444,7 @@ const Dashboard = () => {
 
   // Get color for difficulty level (heat map colors)
   const getDifficultyColor = (difficulty) => {
-    switch(difficulty) {
+    switch (difficulty) {
       case 1: return 'bg-green-100 hover:bg-green-200 text-green-800';
       case 2: return 'bg-blue-100 hover:bg-blue-200 text-blue-800';
       case 3: return 'bg-yellow-100 hover:bg-yellow-200 text-yellow-800';
@@ -456,7 +456,7 @@ const Dashboard = () => {
 
   // Get skill level label
   const getSkillLevel = (difficulty) => {
-    switch(difficulty) {
+    switch (difficulty) {
       case 1: return 'Very Easy';
       case 2: return 'Easy';
       case 3: return 'Medium';
@@ -484,11 +484,11 @@ const Dashboard = () => {
                   {[1, 2, 3, 4, 5].map((level) => (
                     <div
                       key={level}
-                      className={`w-2 h-2 rounded-full ${level <= item.difficulty ? 
-                        (item.difficulty === 1 ? 'bg-green-500' : 
-                         item.difficulty === 2 ? 'bg-blue-500' : 
-                         item.difficulty === 3 ? 'bg-yellow-500' : 
-                         item.difficulty === 4 ? 'bg-orange-500' : 'bg-red-500') : 
+                      className={`w-2 h-2 rounded-full ${level <= item.difficulty ?
+                        (item.difficulty === 1 ? 'bg-green-500' :
+                          item.difficulty === 2 ? 'bg-blue-500' :
+                            item.difficulty === 3 ? 'bg-yellow-500' :
+                              item.difficulty === 4 ? 'bg-orange-500' : 'bg-red-500') :
                         'bg-gray-300'}`}
                     ></div>
                   ))}
@@ -497,7 +497,7 @@ const Dashboard = () => {
             </div>
           ))}
         </div>
-        
+
         {/* Legend */}
         <div className="mt-4">
           <div className="flex flex-wrap gap-4 justify-center">
@@ -530,20 +530,20 @@ const Dashboard = () => {
   // Render Line Chart for Cost Trends
   const renderCostChart = () => {
     const maxCost = Math.max(...costData.map(d => d.cost));
-    
+
     return (
       <div className="relative h-64">
         <svg width="100%" height="100%" className="overflow-visible">
           {costData.map((point, i) => {
             const x = (i / (costData.length - 1)) * 100;
             const y = 100 - (point.cost / maxCost) * 100;
-            
+
             return (
               <g key={i}>
                 {i > 0 && (
                   <line
-                    x1={`${(i-1)/(costData.length-1)*100}%`}
-                    y1={`${100 - (costData[i-1].cost/maxCost)*100}%`}
+                    x1={`${(i - 1) / (costData.length - 1) * 100}%`}
+                    y1={`${100 - (costData[i - 1].cost / maxCost) * 100}%`}
                     x2={`${x}%`}
                     y2={`${y}%`}
                     stroke="#3B82F6"
@@ -570,17 +570,17 @@ const Dashboard = () => {
   // Render Today's Meal Prep Time Bar Chart
   const renderTodaysPrepTimeChart = () => {
     const maxTime = Math.max(...todaysPrepTimeData.map(d => d.time), 1);
-    
+
     return (
       <div className="space-y-6">
         <div className="flex items-end h-48 gap-6 px-4">
           {todaysPrepTimeData.map((item, idx) => {
             const height = (item.time / maxTime) * 100;
-            
+
             return (
               <div key={idx} className="flex-1 flex flex-col items-center">
                 <div className="flex-1 w-full flex items-end">
-                  <div 
+                  <div
                     className={`w-full ${item.color} rounded-t-lg transition-all duration-300 hover:opacity-90 cursor-pointer`}
                     style={{ height: `${height}%` }}
                     onClick={() => handleMealClick(item.type)}
@@ -596,7 +596,7 @@ const Dashboard = () => {
             );
           })}
         </div>
-        
+
         {/* Meal Details */}
         <div className="space-y-3">
           {todaysPrepTimeData.map((item, idx) => (
@@ -666,9 +666,6 @@ const Dashboard = () => {
                 Click on any meal to edit. Click the X icon to delete. Changes are saved automatically.
               </p>
             </div>
-            <div className="text-sm text-gray-500 dark:text-gray-400">
-              <i className="fa-solid fa-save mr-1"></i> Auto-saved
-            </div>
           </div>
         </div>
         <div className="p-6">
@@ -693,7 +690,7 @@ const Dashboard = () => {
                       const color = colors[mealType];
 
                       return (
-                        <div 
+                        <div
                           key={mealType}
                           className={`${color.bg} rounded-lg p-3 text-left cursor-pointer hover:opacity-90 transition-opacity border ${color.border} relative group`}
                           onClick={() => {
@@ -707,7 +704,7 @@ const Dashboard = () => {
                           <p className={`text-xs font-medium ${color.label} dark:${color.darkText} mb-1 capitalize flex justify-between items-center`}>
                             <span>{mealType}</span>
                             {hasMeal && (
-                              <button 
+                              <button
                                 className="delete-btn text-xs text-red-500 hover:text-red-700 opacity-0 group-hover:opacity-100 transition-opacity"
                                 onClick={(e) => {
                                   e.stopPropagation();
@@ -739,7 +736,7 @@ const Dashboard = () => {
             <div className="mt-3">
               <div className="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                  {modalData.action === 'edit' 
+                  {modalData.action === 'edit'
                     ? `${modalData.currentMeal ? 'Edit' : 'Add'} ${modalData.mealType} for ${modalData.dayLabel}`
                     : `Delete ${modalData.mealType} from ${modalData.dayLabel}`
                   }
@@ -853,7 +850,7 @@ const Dashboard = () => {
               const colors = ['blue', 'purple', 'green', 'orange', 'red', 'indigo'];
               const icons = ['fa-utensils', 'fa-ice-cream', 'fa-leaf', 'fa-cookie', 'fa-bowl-food', 'fa-ellipsis'];
               const percentage = totalFavorites > 0 ? (count / totalFavorites) * 100 : 0;
-              
+
               return (
                 <div key={category}>
                   <div className="flex justify-between text-sm mb-2">
@@ -866,7 +863,7 @@ const Dashboard = () => {
                     </span>
                   </div>
                   <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
-                    <div 
+                    <div
                       className={`bg-${colors[idx]}-600 h-3 rounded-full transition-all duration-500`}
                       style={{ width: `${percentage}%` }}
                     ></div>
@@ -885,7 +882,7 @@ const Dashboard = () => {
               Meal Difficulty Level
             </h2>
             <div className="relative">
-              <select 
+              <select
                 value={selectedCuisine}
                 onChange={(e) => setSelectedCuisine(e.target.value)}
                 className="appearance-none bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg pl-3 pr-8 py-2 text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-yellow-500"
@@ -897,7 +894,7 @@ const Dashboard = () => {
               <i className="fa-solid fa-chevron-down absolute right-2 top-1/2 -translate-y-1/2 text-sm pointer-events-none"></i>
             </div>
           </div>
-          
+
           <div className="mb-4">
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Difficulty heat map for: <span className="font-semibold text-gray-800 dark:text-gray-200">{selectedCuisine}</span> cuisine
@@ -906,12 +903,12 @@ const Dashboard = () => {
               Click on any meal to see detailed difficulty information
             </p>
           </div>
-          
+
           {/* Drill-down View */}
           {selectedMeal && mealDetails ? (
             <div className="space-y-4">
               <div className="flex items-center justify-between mb-4">
-                <button 
+                <button
                   onClick={() => {
                     setSelectedMeal(null);
                     setMealDetails(null);
@@ -923,7 +920,7 @@ const Dashboard = () => {
                 </button>
                 <span className="text-sm font-semibold text-yellow-600">{selectedMeal} Details</span>
               </div>
-              
+
               <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
                 <div className="flex items-center mb-3">
                   <div className={`p-2 rounded-lg ${getDifficultyColor(mealDetails.difficulty)}`}>
@@ -934,7 +931,7 @@ const Dashboard = () => {
                     <p className="text-sm text-gray-600 dark:text-gray-400">{mealDetails.cuisine} Cuisine</p>
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-3 gap-4 mt-4">
                   <div className="text-center">
                     <div className="text-xs text-gray-500 dark:text-gray-400">Skill Level</div>
@@ -950,7 +947,7 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                 <h5 className="font-medium text-gray-900 dark:text-white mb-2">Difficulty Breakdown</h5>
                 <div className="space-y-2">
@@ -981,7 +978,7 @@ const Dashboard = () => {
               {renderHeatMap()}
             </div>
           )}
-          
+
           <div className="mt-6 p-4 rounded-lg bg-yellow-50 dark:bg-yellow-900/20">
             <div className="flex items-center">
               <i className="fa-solid fa-fire text-yellow-600 dark:text-yellow-400 mr-3"></i>
@@ -1000,13 +997,13 @@ const Dashboard = () => {
               Meal Cost Trends
             </h2>
             <div className="flex space-x-2">
-              <button 
+              <button
                 onClick={() => setCostFilter('week')}
                 className={`px-3 py-1 text-sm rounded-full ${costFilter === 'week' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'}`}
               >
                 Week
               </button>
-              <button 
+              <button
                 onClick={() => setCostFilter('month')}
                 className={`px-3 py-1 text-sm rounded-full ${costFilter === 'month' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'}`}
               >
@@ -1014,7 +1011,7 @@ const Dashboard = () => {
               </button>
             </div>
           </div>
-          
+
           <div className="mb-4">
             <div className="text-center mb-2">
               <p className="text-3xl font-bold text-gray-900 dark:text-white">
@@ -1023,12 +1020,12 @@ const Dashboard = () => {
               <p className="text-sm text-gray-600 dark:text-gray-400">Total cost this {costFilter}</p>
             </div>
           </div>
-          
+
           {/* Drill-down View */}
           {selectedDay && dayDetails ? (
             <div className="space-y-4">
               <div className="flex items-center justify-between mb-4">
-                <button 
+                <button
                   onClick={() => {
                     setSelectedDay(null);
                     setDayDetails(null);
@@ -1040,7 +1037,7 @@ const Dashboard = () => {
                 </button>
                 <span className="text-sm font-semibold text-blue-600">{selectedDay} Details</span>
               </div>
-              
+
               <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                 <h4 className="font-medium text-gray-900 dark:text-white mb-3">Cost Breakdown</h4>
                 <div className="space-y-3">
@@ -1052,13 +1049,13 @@ const Dashboard = () => {
                   ))}
                 </div>
               </div>
-              
+
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                   <p className="text-xs text-gray-500 dark:text-gray-400">Cost per Meal</p>
                   <p className="text-xl font-bold text-gray-900 dark:text-white">
-                    ${(costData.find(d => (costFilter === 'week' ? d.day : d.week) === selectedDay)?.cost / 
-                       costData.find(d => (costFilter === 'week' ? d.day : d.week) === selectedDay)?.meals || 0).toFixed(2)}
+                    ${(costData.find(d => (costFilter === 'week' ? d.day : d.week) === selectedDay)?.cost /
+                      costData.find(d => (costFilter === 'week' ? d.day : d.week) === selectedDay)?.meals || 0).toFixed(2)}
                   </p>
                 </div>
                 <div className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
@@ -1075,7 +1072,7 @@ const Dashboard = () => {
               {renderCostChart()}
             </div>
           )}
-          
+
           <div className="mt-6 p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20">
             <div className="flex items-center">
               <i className="fa-solid fa-chart-line text-blue-600 dark:text-blue-400 mr-3"></i>
@@ -1086,66 +1083,105 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Chart 3: Today's (Wednesday) Meal Preparation Time */}
+
+        {/* Chart 3: Today's (Wednesday) Meal Preparation Time - BAR CHART */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+
+          {/* Header */}
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-              <i className="fa-solid fa-clock text-purple-600 mr-2"></i>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+              <i className="fa-solid fa-clock text-purple-600"></i>
               Today's Meal Preparation Time
             </h2>
-            <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-gray-600 dark:text-gray-400">Wednesday</span>
-            </div>
+            <span className="text-sm px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">
+              Wednesday
+            </span>
           </div>
-          
-          <div className="mb-4">
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              Preparation time for today's meals. Changes to Wednesday meals will update this chart automatically.
-            </p>
-          </div>
-          
+
+          {/* Check if there is data */}
           {todaysPrepTimeData.length > 0 ? (
-            <>
-              {renderTodaysPrepTimeChart()}
-              
-              <div className="mt-6 grid grid-cols-3 gap-4">
-                <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Breakfast</p>
-                  <p className="text-lg font-bold text-gray-900 dark:text-white">
-                    {todaysPrepTimeData.find(m => m.type === 'Breakfast')?.time || 0} min
+            <div>
+              {/* Bar Chart */}
+              <div className="relative h-72 flex mt-10">
+                {/* Y Axis */}
+                <div className="flex flex-col justify-between text-xs text-gray-500 dark:text-gray-400 pr-3">
+                  {[100, 75, 50, 25, 0].map(v => (
+                    <span key={v}>{v} min</span>
+                  ))}
+                </div>
+
+                {/* Bars */}
+                <div className="flex-1 flex items-end justify-around border-l border-b border-gray-200 dark:border-gray-600 pl-6 pb-4">
+                  {todaysPrepTimeData.map((item, idx) => {
+                    const heightPercent = (item.time / 100) * 100;
+                    const colors = {
+                      Breakfast: 'bg-green-500',
+                      Lunch: 'bg-blue-500',
+                      Dinner: 'bg-purple-500'
+                    };
+
+                    return (
+                      <div
+                        key={idx}
+                        className="flex flex-col items-center gap-3 w-24 cursor-pointer"
+                        onClick={() => handleMealClick(item.type)}
+                      >
+                        {/* Bar */}
+                        <div className="relative w-full h-56 flex items-end ">
+                          <div
+                            className={`
+                      w-full rounded-t-lg transition-all duration-300
+                      ${colors[item.type]}
+                      ${selectedMealType === item.type ? 'ring-4 ring-purple-300' : ''}
+                    `}
+                            style={{ height: `${heightPercent}%` }}
+                          />
+                          {/* Value */}
+                          <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-sm font-semibold text-gray-800 dark:text-gray-200">
+                            {item.time} min
+                          </span>
+                        </div>
+
+                        {/* Labels */}
+                        <div className="text-center">
+                          <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                            {item.type}
+                          </div>
+                          <div className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-[90px]">
+                            {item.meal}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Summary */}
+              <div className="mt-6 grid grid-cols-2 gap-4">
+                <div className="p-4 rounded-lg bg-gray-50 dark:bg-gray-700/50">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Total Time</p>
+                  <p className="text-xl font-bold text-gray-900 dark:text-white">
+                    {todaysPrepTimeData.reduce((s, m) => s + m.time, 0)} min
                   </p>
                 </div>
-                <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Lunch</p>
-                  <p className="text-lg font-bold text-gray-900 dark:text-white">
-                    {todaysPrepTimeData.find(m => m.type === 'Lunch')?.time || 0} min
-                  </p>
-                </div>
-                <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Dinner</p>
-                  <p className="text-lg font-bold text-gray-900 dark:text-white">
-                    {todaysPrepTimeData.find(m => m.type === 'Dinner')?.time || 0} min
+                <div className="p-4 rounded-lg bg-gray-50 dark:bg-gray-700/50">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Average / Meal</p>
+                  <p className="text-xl font-bold text-gray-900 dark:text-white">
+                    {Math.round(
+                      todaysPrepTimeData.reduce((s, m) => s + m.time, 0) /
+                      todaysPrepTimeData.length
+                    )} min
                   </p>
                 </div>
               </div>
-            </>
+            </div>
           ) : (
-            <div className="text-center py-8">
-              <i className="fa-solid fa-utensils text-4xl text-gray-300 dark:text-gray-600 mb-4"></i>
-              <p className="text-gray-500 dark:text-gray-400">No meals planned for Wednesday</p>
-              <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">Add meals to see preparation times</p>
+            <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+              <i className="fa-solid fa-utensils text-4xl mb-3"></i>
+              <p>No meals planned for Wednesday</p>
             </div>
           )}
-          
-          <div className="mt-6 p-4 rounded-lg bg-purple-50 dark:bg-purple-900/20">
-            <div className="flex items-center">
-              <i className="fa-solid fa-sync-alt text-purple-600 dark:text-purple-400 mr-3"></i>
-              <p className="text-sm text-gray-700 dark:text-gray-300">
-                <span className="font-semibold">Live Updates:</span> This chart updates automatically when you change Wednesday meals above.
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* Chart 4: Cuisine Distribution - PIE CHART */}
@@ -1154,7 +1190,7 @@ const Dashboard = () => {
             <i className="fa-solid fa-globe text-red-600 mr-2"></i>
             Cuisine Distribution
           </h2>
-          
+
           <div className="flex flex-col items-center">
             <div className="relative w-48 h-48 mb-6">
               <div className="absolute inset-0 flex items-center justify-center">
@@ -1173,14 +1209,14 @@ const Dashboard = () => {
                     const [x1, y1] = getCoordinatesForPercent(cumulativePercent / 100, 96, 70);
                     cumulativePercent += percent;
                     const [x2, y2] = getCoordinatesForPercent(cumulativePercent / 100, 96, 70);
-                    
+
                     const largeArcFlag = percent > 50 ? 1 : 0;
                     const pathData = [
                       `M ${x1} ${y1}`,
                       `A 70 70 0 ${largeArcFlag} 1 ${x2} ${y2}`,
                       `L 96 96`
                     ].join(' ');
-                    
+
                     return (
                       <path
                         key={idx}
@@ -1195,7 +1231,7 @@ const Dashboard = () => {
                 })()}
               </svg>
             </div>
-            
+
             <div className="w-full space-y-3">
               {cuisineData.map((item, idx) => {
                 const percentage = (item.count / cuisineData.reduce((sum, i) => sum + i.count, 1)) * 100;
